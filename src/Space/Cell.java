@@ -6,5 +6,9 @@ public interface Cell {
     void setPlayerIsHere();
     void GoOut();
     boolean havePlayer();
+    boolean haveMonster();
+    //int characterNum;
+    public String rep();
+
 
 }

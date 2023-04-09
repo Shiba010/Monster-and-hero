@@ -1,16 +1,22 @@
 package Space;
+
 import Events.Market;
 import Players.Player;
 
 
-public class MarketSpace implements Cell {
+
+public class HeroNexusSpace implements Cell {
     private boolean PlayerIsHere;
+    private boolean MonsterIsHere;
     private final Market market = new Market();
 
     private final double occur_probability;
-    public MarketSpace() {
+    public HeroNexusSpace() {
         PlayerIsHere = false;
         occur_probability = 1;
+    }
+    public void setMonsterIsHere() {
+        MonsterIsHere = true;
     }
 
     @Override
@@ -30,16 +36,27 @@ public class MarketSpace implements Cell {
     public void setPlayerIsHere() {
         PlayerIsHere = true;
     }
+    public void setMonsterIsHere() {
+        MonsterIsHere = true;
+    }
 
     @Override
     public boolean havePlayer() {
         return PlayerIsHere;
     }
+    @Override
+    public boolean haveMonster() {
+        return MonsterIsHere;
+    }
 
     @Override
     public String toString() {
-        if(havePlayer()) return "P";
-        else return "M";
+        if(havePlayer()) return "  P  ";
+        else return "     ";
+    }
+
+    @Override
+    public String rep() {
+        return "N";
     }
 }
-

@@ -5,58 +5,96 @@ import java.util.ArrayList;
 import java.util.List;
 import Space.Cell;
 import Prompt.*;
-import Space.CommonSpace;
-import Space.MarketSpace;
 import Space.InvalidSpace;
+import Space.BushSpace;
+import Space.CaveSpace;
+import Space.PlainSpace;
+import Space.KoulouSpace;
+import Space.HeroNexusSpace;
+import Space.MonsterNexusSpace;
+
+
 
 
 public class RandMap implements Map{ // this is a map that cells is randomly scattered
     private final Cell [][] world; // array of world
     private final int world_size_x;
     private final int world_size_y;
-    private final double inaccessible_portion;
-    private final double market_portion;
-    private final double common_portion;
+    private final double plain_num;
+    private final double bush_num;
+    private final double cave_num;
+    private final double koulou_num;
+
+    private int hero1_x;
+    private int hero1_y;
+    private int hero2_x;
+    private int hero2_y;
+    private int hero3_x;
+    private int hero3_y;
+
     private int player_space_x;// set where the player is in x-axis
     private int party_space_y;// set where the player is in y-axis
 
     public RandMap(){
-        world_size_x = 12;
+        // tatal 64 cells 16+6+6+9*4
+        world_size_x = 8;
         world_size_y = 8;
-        inaccessible_portion = 0.2;
-        market_portion = 0.2;
+
+        plain_num = 9;
+        bush_num = 9;
+        cave_num = 9;
+        koulou_num = 9;
+
+        hero1_x = 7;
+        hero1_y = 1;
+        hero2_x = 7;
+        hero2_y = 4;
+        hero3_x = 7;
+        hero3_y = 7;
+
         player_space_x = 0;
         party_space_y = world_size_y-1; // start from the lowest left
-        common_portion = (1 - inaccessible_portion - market_portion);
+
         world = new Cell[world_size_y][world_size_x];
     }
     @Override
     public void initial_map() { // create cells and add them into map
         List<Cell> cell_pool = new ArrayList<Cell>();
-        int space_amount = world_size_x*world_size_y;
-        for(int i = 0; i < space_amount*inaccessible_portion; i++){ // add all amount of inaccessible space to pool
-            cell_pool.add(new InvalidSpace());
+//        int space_amount = world_size_x*world_size_y;
+
+        for(int i = 0; i < plain_num; i++){ // add all amount of plain space to pool
+            cell_pool.add(new PlainSpace());
         }
-        for(int i = 0; i < space_amount*market_portion; i++){
-            MarketSpace MS = new MarketSpace();
-            cell_pool.add(MS);
+        for(int i = 0; i < bush_num; i++){ // add all amount of bush space to pool
+            cell_pool.add(new BushSpace());
         }
-        for(int i = 0; cell_pool.size() <= space_amount; i++){
-            cell_pool.add(new CommonSpace());
+        for(int i = 0; i < cave_num; i++){ // add all amount of cave space to pool
+            cell_pool.add(new CaveSpace());
         }
+        for(int i = 0; i < koulou_num; i++){ // add all amount of koulou space to pool
+            cell_pool.add(new KoulouSpace());
+        }
+
         for (int x = 0; x < world_size_x; x++){ // set first n space on x-axis is common
             for(int y = 0; y < world_size_y; y++){ // set first n space on y-axis is common
-                int removed_index = RandomGenerator.RandomIndex(cell_pool.size());
-                world[y][x] = cell_pool.get(removed_index);
-                cell_pool.remove(removed_index);
+                if(y == 2 || y ==5){
+                    world[x][y] = new InvalidSpace();
+                }
+                else{
+                    if(x==0){
+                        world[x][y] = new MonsterNexusSpace();
+                    }
+                    else if(x==7){
+                        world[x][y] = new HeroNexusSpace();
+                    }
+                    else{
+                        int removed_index = RandomGenerator.RandomIndex(cell_pool.size());
+                        world[x][y] = cell_pool.get(removed_index);
+                        cell_pool.remove(removed_index);
+                    }
+                }
             }
         }
-        // if start place is occupied
-        if(!(world[party_space_y][player_space_x] instanceof CommonSpace)){
-            initial_map(); // recreate a map
-        }
-        // put party in the start place
-        world[party_space_y][player_space_x].setPlayerIsHere();
     }
 
     @Override
@@ -121,25 +159,29 @@ public class RandMap implements Map{ // this is a map that cells is randomly sca
     }
 
 
+
     @Override
     public String toString() {
+        //print board
         String map_out = "";
-        String firstLine = "";
-        for(int i = 0; i < world_size_x; i++) firstLine+="+---";
-        firstLine += "+\n";
-        for(int y = 0; y < world_size_y; y++){
-            map_out += firstLine + PrintLine(y);
+        for(int i=0; i < world_size_x; i++){
+            String firstLine = new String();
+            String secondLine = new String();
+            for(int j=0; j < world_size_y; j++){
+                Cell c = world[i][j];
+                String rep = c.rep();
+                String content = c.toString();
+                firstLine+=" "+rep+"-"+rep+"-"+rep+" ";
+                secondLine+="|"+content+"|";
+            }
+            map_out+=firstLine+"\n"+secondLine+"\n"+firstLine+"\n";
         }
-        map_out += firstLine;
         return map_out;
     }
 
-    public String PrintLine(int y){
-        String Line = "";
-        for(int x = 0; x < world_size_x; x++) Line += "| " + world[y][x].toString() + " ";
-        Line += "|\n";
-        return Line;
-    }
+
+
+
 
     public static void main(String[] args) throws FileNotFoundException { // for test
         RandMap m = new RandMap();

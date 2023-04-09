@@ -25,6 +25,11 @@ public class InvalidSpace implements Cell{
 
     @Override
     public String toString() {
-        return "D";
+        return "XXXXX";
+    }
+
+    @Override
+    public String rep() {
+        return "X";
     }
 }
