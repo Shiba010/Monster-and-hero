@@ -23,6 +23,8 @@ public class Monster implements Character{
     private final int dead_exp_factor;
     private final double spell_affect_factor;
     private final int level_HP_ratio;
+    private int positionX;
+    private int positionY;
 
     Monster(String name, int level, int damage, int defense, int dodge_abi){
         dodge_ability_factor = 0.01;
@@ -138,5 +140,14 @@ public class Monster implements Character{
         String title = String.format("   %-20s %-10s %-15s %-10s %-10s %-10s \n",
                 "Monster's Name", "level", "HP", "damage","defense","dodge_ability");
         return title;
+    }
+
+    @Override
+    public int getPositionX(){
+        return positionX;
+    }
+    @Override
+    public int getPositionY(){
+        return positionY;
     }
 }

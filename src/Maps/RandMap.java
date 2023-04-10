@@ -3,6 +3,9 @@ package Maps;
 import java.io.FileNotFoundException;
 import java.util.ArrayList;
 import java.util.List;
+
+import Characters.CharacterFactory;
+import Characters.Heros.Hero;
 import Space.Cell;
 import Prompt.*;
 import Space.InvalidSpace;
@@ -12,6 +15,7 @@ import Space.PlainSpace;
 import Space.KoulouSpace;
 import Space.HeroNexusSpace;
 import Space.MonsterNexusSpace;
+import Events.Market;
 
 
 
@@ -24,16 +28,8 @@ public class RandMap implements Map{ // this is a map that cells is randomly sca
     private final double bush_num;
     private final double cave_num;
     private final double koulou_num;
+    private Market market = new Market();
 
-    private int hero1_x;
-    private int hero1_y;
-    private int hero2_x;
-    private int hero2_y;
-    private int hero3_x;
-    private int hero3_y;
-
-    private int player_space_x;// set where the player is in x-axis
-    private int party_space_y;// set where the player is in y-axis
 
     public RandMap(){
         // tatal 64 cells 16+6+6+9*4
@@ -44,16 +40,6 @@ public class RandMap implements Map{ // this is a map that cells is randomly sca
         bush_num = 9;
         cave_num = 9;
         koulou_num = 9;
-
-        hero1_x = 7;
-        hero1_y = 1;
-        hero2_x = 7;
-        hero2_y = 4;
-        hero3_x = 7;
-        hero3_y = 7;
-
-        player_space_x = 0;
-        party_space_y = world_size_y-1; // start from the lowest left
 
         world = new Cell[world_size_y][world_size_x];
     }
@@ -98,67 +84,87 @@ public class RandMap implements Map{ // this is a map that cells is randomly sca
     }
 
     @Override
-    public boolean move(String direction) { // return true if we actually move
-        if(direction.equals("W")|direction.equals("w")) return move_up();
-        else if (direction.equals("A")|direction.equals("a")) return move_left();
-        else if (direction.equals("S")|direction.equals("s")) return move_down();
-        else if (direction.equals("D")|direction.equals("d")) return move_right();
+    public boolean move(String direction, Hero hero) { // return true if we actually move
+        if(direction.equals("W")|direction.equals("w")) return move_up(hero);
+        else if (direction.equals("A")|direction.equals("a")) return move_left(hero);
+        else if (direction.equals("S")|direction.equals("s")) return move_down(hero);
+        else if (direction.equals("D")|direction.equals("d")) return move_right(hero);
+        else if (direction.equals("M")|direction.equals("m"))
+        {
+            market.start_event(hero);
+            return false;
+        }
         return false;
     }
 
+
+
     @Override
-    public boolean move_up() { //return false if we cant move up
-        if(party_space_y - 1 < 0 || world[party_space_y-1][player_space_x] instanceof InvalidSpace){
+    public boolean move_up(Hero hero) { //return false if we cant move up
+        int positionX=hero.getPositionX();
+        int positionY=hero.getPositionY();
+        if(positionX - 1 < 0 || world[positionY-1][positionX] instanceof InvalidSpace){
             // if the pLace is out of bounds or inaccessible;
             PrintPrompt.cannot_move();
             return false;
         }
-        world[party_space_y][player_space_x].GoOut(); // go out current cell
-        party_space_y = party_space_y-1;
+        world[positionY][positionX].GoOut(); // go out current cell
+        positionY = positionY-1;
+        hero.setPositionY(positionY);
         return true;
     }
 
     @Override
-    public boolean move_down() { //return false if we cant move sown
-        if(party_space_y + 1 >= world_size_y|| world[party_space_y+1][player_space_x] instanceof InvalidSpace){
+    public boolean move_down(Hero hero) { //return false if we cant move sown
+        int positionX = hero.getPositionX();
+        int positionY = hero.getPositionY();
+        if(positionY + 1 >= world_size_y|| world[positionY+1][positionX] instanceof InvalidSpace){
             // if the place is out of bounds or inaccessible;
             PrintPrompt.cannot_move();
             return false;
         }
-        world[party_space_y][player_space_x].GoOut(); // go out current cell
-        party_space_y = party_space_y + 1;
+        world[positionY][positionX].GoOut(); // go out current cell
+        positionY = positionY + 1;
+        hero.setPositionY(positionY);
         return true;
     }
 
     @Override
-    public boolean move_left() { //return false if we cant move left
-        if(player_space_x - 1 < 0 || world[party_space_y][player_space_x-1] instanceof InvalidSpace){
+    public boolean move_left(Hero hero) { //return false if we cant move left
+        int positionX = hero.getPositionX();
+        int positionY = hero.getPositionY();
+        if(positionX - 1 < 0 || world[positionY][positionX-1] instanceof InvalidSpace){
             // if the place is out of bounds or inaccessible;
             PrintPrompt.cannot_move();
             return false;
         }
-        world[party_space_y][player_space_x].GoOut(); // go out current cell
-        player_space_x = player_space_x - 1;
+        world[positionY][positionX].GoOut(); // go out current cell
+        positionX = positionX - 1;
+        hero.setPositionX(positionX);
         return true;
     }
 
     @Override
-    public boolean move_right() { //return false if we cant move right
-        if(player_space_x + 1 >= world_size_x || world[party_space_y][player_space_x+1] instanceof InvalidSpace){
+    public boolean move_right(Hero hero) { //return false if we cant move right
+        int positionX = hero.getPositionX();
+        int positionY = hero.getPositionY();
+        if(positionX + 1 >= world_size_x || world[positionY][positionX+1] instanceof InvalidSpace){
             // if the place is out of bounds or inaccessible;
             PrintPrompt.cannot_move();
             return false;
         }
-        world[party_space_y][player_space_x].GoOut(); // go out current cell
-        player_space_x = player_space_x + 1;
+        world[positionY][positionX].GoOut(); // go out current cell
+        positionX = positionX + 1;
+        hero.setPositionX(positionX);
         return true;
     }
+
     @Override
-    public Cell getCell(){ // return the Cell
-        return world[party_space_y][player_space_x];
+    public Cell getCell(Hero hero){ // return the Cell
+        int positionX = hero.getPositionX();
+        int positionY = hero.getPositionY();
+        return world[positionY][positionX];
     }
-
-
 
     @Override
     public String toString() {

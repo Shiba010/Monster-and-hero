@@ -2,6 +2,7 @@ package Characters.Heros;
 import java.util.ArrayList;
 import java.util.List;
 import Characters.Character;
+import Characters.CharacterFactory;
 import Items.Item;
 import Items.Weaponry;
 import Items.Armory;
@@ -12,6 +13,8 @@ import Items.Spells.Spell;
 import Prompt.PrintPrompt;
 import Maps.RandomGenerator;
 import Characters.Monsters.Monster;
+import Players.Player;
+import Party.Party;
 
 
 
@@ -26,6 +29,9 @@ abstract public class Hero implements Character{  // this class is Hero object
     private int dex; //dexterity
     private int money;
     private int exp;
+    private String heroMark;
+    private int positionX;
+    private int positionY;
     private final List<Item> equipment_inventory = new ArrayList<Item>(); // inventory that only contains equipment
     private final List<Item> consumables_inventory = new ArrayList<Item>(); // inventory that only contains consumable
     private Weaponry weapon; // equipment is weapon that is on hero's hand
@@ -41,6 +47,7 @@ abstract public class Hero implements Character{  // this class is Hero object
     private final double HP_regain_factor;
     private final double MP_regain_factor;
     private final double dex_damage_factor;
+
 
     public Hero(String name, int mana, int str, int agi, int dex, int money, int exp){
         level_up_factor = 10;
@@ -61,6 +68,7 @@ abstract public class Hero implements Character{  // this class is Hero object
         this.exp = exp;
         this.level = 1;
         this.HP = (int) Math.round(level*level_HP_ratio); // reset HP
+        this.heroMark = heroMark;
     }
 
     public boolean CheckBuy(Item item){ // check the item can be bought or not
@@ -288,4 +296,39 @@ abstract public class Hero implements Character{  // this class is Hero object
         return title;
     }
 
+    public void setHeroMark( int index){
+        heroMark = "H"+Integer.toString(index+1);
+    }
+    public String getHeroMark(){
+        return heroMark;
+    }
+    public void setInitHeroPosition(int index){
+            positionY = 7;
+            if(index==0){
+                positionX = 1;
+            }
+            else if(index==1){
+                positionX = 4;
+            }
+            else if(index==2){
+                positionX = 7;
+            }
+    }
+
+    public void setPositionX(int newPositionX){
+        positionX = newPositionX;
+    }
+    public void setPositionY(int newPositionY){
+        positionY = newPositionY;
+    }
+    @Override
+    public int getPositionX(){
+        return positionX;
+    }
+    @Override
+    public int getPositionY(){
+        return positionY;
+    }
+
 }
+

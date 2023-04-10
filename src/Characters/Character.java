@@ -11,7 +11,11 @@ public interface Character {
     void gainExp(int exp);
     int getHP();
     void gainGold(int extra_money);
+    int getPositionX();
+    int getPositionY();
 
     String getTitle();
+
+
 }
 

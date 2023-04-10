@@ -58,9 +58,9 @@ public class PrintPrompt {
         System.out.println(c.getName()+" is joined to the party!!");
     }
     public static void each_round_begin(Party party, Map map){
-        System.out.print("This is your party: \n" + party.toString());
-        System.out.println("P is your current location on the map: ");
         System.out.print(map);
+        System.out.print("This is your party: \n" + party.toString());
+        System.out.println("H is your hero location on the map: ");
     }
 
     public static void Print_heroes(List<Hero> Hero_list){ // print heroes list, for player to select heroes
