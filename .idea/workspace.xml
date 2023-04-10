@@ -5,22 +5,8 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="dacb6199-b0d1-4942-816c-4899d0872a75" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/.idea/vcs.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/611_Assignment_4_test.iml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/Space/BushSpace.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/Space/CaveSpace.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/Space/HeroNexusSpace.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/Space/KoulouSpace.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/Space/MonsterNexusSpace.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/Space/PlainSpace.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/.gitignore" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/modules.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/modules.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Maps/RandMap.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Maps/RandMap.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Space/Cell.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Space/Cell.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Space/CommonSpace.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Space/InvalidSpace.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Space/InvalidSpace.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Space/MarketSpace.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Characters/Monsters/Monster.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Characters/Monsters/Monster.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -50,7 +36,10 @@
     "RunOnceActivity.OpenProjectViewOnStart": "true",
     "RunOnceActivity.ShowReadmeOnStart": "true",
     "SHARE_PROJECT_CONFIGURATION_FILES": "true",
-    "last_opened_file_path": "/Users/neko/Desktop/611_Assignment_4_test"
+    "WebServerToolWindowFactoryState": "false",
+    "last_opened_file_path": "/Users/yichuanma/Documents/bu-ai/cs611/homeworks/Monster-and-hero",
+    "nodejs_package_manager_path": "npm",
+    "vue.rearranger.settings.migration": "true"
   }
 }]]></component>
   <component name="RunManager" selected="Application.Main">
@@ -89,7 +78,12 @@
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
       <updated>1680986888860</updated>
+      <workItem from="1681066635986" duration="14000" />
+      <workItem from="1681066662883" duration="2466000" />
     </task>
     <servers />
+  </component>
+  <component name="TypeScriptGeneratedFilesManager">
+    <option name="version" value="3" />
   </component>
 </project>

@@ -67,10 +67,7 @@ public class Monster implements Character{
 
     @Override
     public boolean checkAlive() {
-        if(HP <= 0){
-            return false;
-        }
-        return true;
+        return HP > 0;
     }
 
     @Override
