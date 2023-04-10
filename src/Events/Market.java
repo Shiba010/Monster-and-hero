@@ -23,10 +23,12 @@ public class Market implements Event{
         PrintPrompt.Print_items(item_list);
     }
 
-    public Player enterMarket(Player player, int index){ // index means which Hero is going to enter Market
-        Hero hero = player.getCharacter(index);
+    //public Hero enterMarket(Player player, int index){ // index means which Hero is going to enter Market
+    public Hero enterMarket(Hero hero){ // index means which Hero is going to enter Market
+        //Hero hero = player.getCharacter(index);
         System.out.println(hero.getName()+" goes in to Market!");
         PrintPrompt.welcome_market();
+        Player player = new Player();
 
         label:
         while(!player.checkQuit()){
@@ -45,47 +47,47 @@ public class Market implements Event{
 
                     if (item_index.equals("Q")|item_index.equals("q")) {
                         player.Quit();
-                        return player;
+                        return hero;
                     } else if (item_index.equals("L")|item_index.equals("l")) {
-                        return player;
+                        return hero;
                     } else {
                         Item item = item_list.get(Integer.parseInt(item_index));// get the item that need to be sold
 
                         hero.sell(item);
                         this.item_list.add(item);
-                        player.updateParty(index, hero);
-                        return player;
+                        //player.updateParty(index, hero);
+                        return hero;
                     }
                 case "L":
                 case "l":
-                    return player;
+                    return hero;
             }
         }
 
         while(!player.checkQuit()){ // if quit is not true
             String item_index_string = AskPrompt.ask_want_to_buy(item_list, hero);
             if(item_index_string.equals("L") || item_index_string.equals("l")){ // hero leave the market
-                return player;
+                return hero;
             }
             else if(item_index_string.equals("Q") || item_index_string.equals("q")){ // quit
                 player.Quit();
-                return player;
+                return hero;
             }
             int item_index = Integer.parseInt(item_index_string); // item_index
             if(hero.CheckBuy(item_list.get(item_index))){ // if the item can be bought
                 hero.buy(item_list.remove(item_index)); // buy it
-                player.updateParty(index,hero); // update the data in party
+                //player.updateParty(index,hero); // update the data in party
             }
             String keep = AskPrompt.ask_keep_shopping(hero);
             if(keep.equals("L") || keep.equals("l")){ // leave
-                return player;
+                return hero;
             }
             else if (keep.equals("Q") || keep.equals("q")){ // quit
                 player.Quit();
-                return player;
+                return hero;
             }
         }
-        return player;
+        return hero;
     }
 
     @Override
@@ -93,22 +95,27 @@ public class Market implements Event{
         return RandomGenerator.TrueFalseGen(probability);
     }
 
-    @Override
-    public Player start_event(Player player) {
+
+    public Hero start_event(Hero hero) {
+        Player player = new Player();
         while(!player.checkQuit()){ // if quit is not true
             String input = AskPrompt.ask_hero_to_buy(player.getParty()); // return a string represent index or I or Q;
             if(input.equals("Q") || input.equals("q")) { // quit if the player type Q
                 player.Quit();
-                return player;
+                return hero;
             }
             else if(input.equals("L") || input.equals("l")){ // leave the market
-                return player;
+                return hero;
             }
-            int index = Integer.parseInt(input); // change to integer
-            player = enterMarket(player, index);// decide which hero will enter to market
+            //int index = Integer.parseInt(input); // change to integer
+            hero = enterMarket(hero);// decide which hero will enter to market
         }
-        return player;
+        return hero;
     }
+    @Override
+    public Player start_event(Player player){
+        return player;
+    };
 
 
 }

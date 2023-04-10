@@ -2,66 +2,74 @@ package Space;
 
 import Events.Battle;
 import Players.Player;
+import Characters.Heros.Hero;
 
 
 
 public class BushSpace implements Cell {
-    private boolean PlayerIsHere;
+    private boolean HeroIsHere;
     private boolean MonsterIsHere;
     public BushSpace(){
-        PlayerIsHere = false;
+        HeroMark = "  ";
+        MonsterMark = "  ";
+        HeroIsHere = false;
+        MonsterIsHere = false;
     }
-    private int characterNum = 0;
+    private String HeroMark;
+    private String MonsterMark;
+
 
     //private double occur_probability; // the probability to start an event
-
-    public void setPlayerIsHere(){
-        PlayerIsHere = true;
+    @Override
+    public void setHeroIsHere(){
+        HeroIsHere = true;
         //occur_probability = 0.5;
     }
     public void setMonsterIsHere() {
         MonsterIsHere = true;
     }
     @Override
-    public Player GoIn(Player player){
-        setPlayerIsHere();
-        characterNum+=1;
+    public Hero GoIn(Hero hero){
+        setHeroIsHere();
+        HeroMark = hero.getHeroMark();
 
 //        Battle battle = new Battle();
 //        if(battle.event_occur(occur_probability)){
 //            return battle.start_event(player);
 //        }
-        return player;
+        return hero;
     }
 
     @Override
     public void GoOut() {
-        PlayerIsHere = false;
-        characterNum-=1;
+        HeroIsHere = false;
+        HeroMark = "  ";
     }
 
     @Override
     public boolean havePlayer() {
-        return PlayerIsHere;
+        return HeroIsHere;
     }
     @Override
     public boolean haveMonster() {
         return MonsterIsHere;
     }
+    @Override
+    public boolean isHeroNexus() {
+        return false;
+    }
 
 
     @Override
     public String toString() {
-        if(havePlayer()){
-            if (characterNum == 1){
-
-            }
-            if (characterNum == 2){
-
-            }
-            return "  P  ";
+        if (MonsterIsHere){
+            MonsterMark = "M ";
         }
-        else return "     ";
+        else{
+            MonsterMark = "  ";
+        }
+        return HeroMark+" "+MonsterMark;
+
     }
     @Override
     public String rep() {

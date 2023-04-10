@@ -2,57 +2,73 @@ package Space;
 
 import Events.Market;
 import Players.Player;
+import Characters.Heros.Hero;
 
 
 
 public class HeroNexusSpace implements Cell {
-    private boolean PlayerIsHere;
+    private boolean HeroIsHere;
     private boolean MonsterIsHere;
+    private String HeroMark;
+    private String MonsterMark;
     private final Market market = new Market();
 
-    private final double occur_probability;
+    //private final double occur_probability;
     public HeroNexusSpace() {
-        PlayerIsHere = false;
-        occur_probability = 1;
-    }
-    public void setMonsterIsHere() {
-        MonsterIsHere = true;
+        HeroMark = "  ";
+        MonsterMark = "  ";
+        HeroIsHere = false;
+        MonsterIsHere = false;
+        //occur_probability = 1;
     }
 
+
     @Override
-    public Player GoIn(Player player) {
-        setPlayerIsHere();
-        if(market.event_occur(occur_probability)){
-            return market.start_event(player);
-        }
-        return player;
+    public Hero GoIn(Hero hero) {
+        setHeroIsHere();
+//        if(market.event_occur(occur_probability)){
+//            return market.start_event(player);
+//        }
+        HeroMark = hero.getHeroMark();
+        return hero;
     }
     @Override
     public void GoOut() {
-        PlayerIsHere = false;
+        HeroIsHere = false;
+        HeroMark = "  ";
     }
 
     @Override
-    public void setPlayerIsHere() {
-        PlayerIsHere = true;
+    public void setHeroIsHere() {
+        HeroIsHere = true;
     }
+    @Override
     public void setMonsterIsHere() {
-        MonsterIsHere = true;
+        HeroIsHere = true;
     }
+
 
     @Override
     public boolean havePlayer() {
-        return PlayerIsHere;
+        return HeroIsHere;
     }
     @Override
     public boolean haveMonster() {
         return MonsterIsHere;
     }
-
+    @Override
+    public boolean isHeroNexus() {
+        return true;
+    }
     @Override
     public String toString() {
-        if(havePlayer()) return "  P  ";
-        else return "     ";
+        if (MonsterIsHere){
+            MonsterMark = "M ";
+        }
+        else{
+            MonsterMark = "  ";
+        }
+        return HeroMark+" "+MonsterMark;
     }
 
     @Override

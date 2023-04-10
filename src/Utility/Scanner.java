@@ -8,6 +8,9 @@ public class Scanner { // this is used to scan input
         scan.nextLine();
         return input;
     }
+    public int ScanInt(){
+        return scan.nextInt();
+    }
     public void close(){
         scan.close();
     }

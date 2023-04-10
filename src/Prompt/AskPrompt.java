@@ -12,24 +12,24 @@ import Characters.Heros.Hero;
 public class AskPrompt { // this class is used to communicate with player and terminal
     private static Scanner s = new Scanner();
 
-    public static int ask_how_many_heroes(int max_people) { // ask how many people is in the party
-        while (true) {
-            System.out.print("How many Heroes will be in your party: ");
-            String num = s.ScanString();
-            try {
-                Integer.parseInt(num);
-            } catch (Exception e) {
-                System.out.println("invalid input! please input a integer\n");
-                continue;
-            }
-            int hero_num = Integer.parseInt(num);
-            if (hero_num > 0 && hero_num <= 3) {
-                //s.close();
-                return hero_num;
-            }
-            System.out.println(String.format("Number of heroes is out of bounds! Only %s people at most", max_people));
-        }
-    }
+//    public static int ask_how_many_heroes(int max_people) { // ask how many people is in the party
+//        while (true) {
+//            System.out.print("How many Heroes will be in your party: ");
+//            String num = s.ScanString();
+//            try {
+//                Integer.parseInt(num);
+//            } catch (Exception e) {
+//                System.out.println("invalid input! please input a integer\n");
+//                continue;
+//            }
+//            int hero_num = Integer.parseInt(num);
+//            if (hero_num > 0 && hero_num <= 3) {
+//                //s.close();
+//                return hero_num;
+//            }
+//            System.out.println(String.format("Number of heroes is out of bounds! Only %s people at most", max_people));
+//        }
+//    }
 
     public static Hero ask_which_hero(List<Hero> list) { // ask Hero we need to add in the party
 
@@ -49,6 +49,18 @@ public class AskPrompt { // this class is used to communicate with player and te
         }
     }
 
+    public static int ask_which_hero_next() { // ask Hero we need to add in the party
+        System.out.print("Which hero you want to select? Enter the number: ");
+        int num = s.ScanInt();
+
+        while(num<0 || num>2) {
+            System.out.println("invalid input! please input a integer\n");
+            System.out.print("Which hero you want to select? Enter the number: ");
+            num = s.ScanInt();
+        }
+        return num;
+    }
+
     public static String ask_which_direction(Party hero_party) { // ask which direction should the party go
         while (true) {
             System.out.println("*P means where the part is, M means Market, D means dead end");
@@ -66,7 +78,33 @@ public class AskPrompt { // this class is used to communicate with player and te
                 return dir;
             } else if (dir.equals("I") || dir.equals("i")) System.out.print(hero_party); // if the input is I print information
             else System.out.println("Please enter a valid direction !");
+        }
+    }
 
+    public static String ask_which_direction_Nexus(Party hero_party) { // ask which direction should the party go
+        while (true) {
+            System.out.println("*P means where the part is, M means Market, D means dead end");
+            System.out.println("which direction should the party go ?");
+            System.out.println("[W/w] up");
+            System.out.println("[A/a] left");
+            System.out.println("[S/s] down");
+            System.out.println("[D/d] right");
+            System.out.println("[M/m] Market");
+            System.out.println("[I/i] info");
+            System.out.println("[Q/q] quit");
+            System.out.print("Please enter:");
+            String dir = s.ScanString();
+            if (dir.equals("W") || dir.equals("A") || dir.equals("S") || dir.equals("D") || dir.equals("Q")
+                    ||dir.equals("w") || dir.equals("a") || dir.equals("s") || dir.equals("d") || dir.equals("q")
+                    || dir.equals("M") || dir.equals("m") )
+            {
+                return dir;
+            }
+
+            else if (dir.equals("I") || dir.equals("i")) { System.out.print(hero_party);} // if the input is I print information
+            else {
+                System.out.println("Please enter a valid direction !");
+            }
         }
     }
 
