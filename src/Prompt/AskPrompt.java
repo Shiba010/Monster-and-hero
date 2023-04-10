@@ -108,16 +108,16 @@ public class AskPrompt { // this class is used to communicate with player and te
         }
     }
 
-    public static String ask_hero_to_buy(Party party) { // return the index of the hero that the player select
-        System.out.print(party);
+    public static String ask_hero_to_buy(Hero hero) { // return the index of the hero that the player select
+        System.out.print(hero);
         while (true) {
-            System.out.println("[I/i]: party info");
+            System.out.println("[I/i]: hero info");
             System.out.println("[L/l]: leave the market");
             System.out.println("[Q/q]: quit");
-            System.out.print("Which hero wants to buy/sell some Items? Please enter a number:");
+            //System.out.print("Which hero wants to buy/sell some Items? Please enter a number:");
             String index = s.ScanString();
             if (index.equals("I")|index.equals("i")) {
-                System.out.print(party); // if input is I, print party
+                System.out.print(hero); // if input is I, print party
                 continue;
             } else if (index.equals("Q") || index.equals("L")||index.equals("q") || index.equals("l")) {
                 return index;
@@ -129,11 +129,6 @@ public class AskPrompt { // this class is used to communicate with player and te
                     continue;
                 }
             }
-            int index_int = Integer.parseInt(index);
-            if (0 <= index_int && index_int < party.size()) {
-                return index;
-            }
-            System.out.println("Please select a Hero again");
         }
     }
 

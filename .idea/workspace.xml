@@ -6,36 +6,12 @@
   <component name="ChangeListManager">
     <list default="true" id="dacb6199-b0d1-4942-816c-4899d0872a75" name="Changes" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/611_Assignment_4_test/Characters/Character.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/611_Assignment_4_test/Characters/Character.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/611_Assignment_4_test/Characters/Heros/Hero.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/611_Assignment_4_test/Characters/Heros/Hero.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/611_Assignment_4_test/Characters/Monsters/Monster.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/611_Assignment_4_test/Characters/Monsters/Monster.class" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/out/production/611_Assignment_4_test/Events/Market.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/611_Assignment_4_test/Events/Market.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/611_Assignment_4_test/Game/MonsterAndHeroGame.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/611_Assignment_4_test/Game/MonsterAndHeroGame.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/611_Assignment_4_test/Maps/Map.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/611_Assignment_4_test/Maps/Map.class" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/out/production/611_Assignment_4_test/Maps/RandMap.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/611_Assignment_4_test/Maps/RandMap.class" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/out/production/611_Assignment_4_test/Prompt/AskPrompt.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/611_Assignment_4_test/Prompt/AskPrompt.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/611_Assignment_4_test/Prompt/PrintPrompt.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/611_Assignment_4_test/Prompt/PrintPrompt.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/611_Assignment_4_test/Space/CaveSpace.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/611_Assignment_4_test/Space/CaveSpace.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/611_Assignment_4_test/Space/Cell.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/611_Assignment_4_test/Space/Cell.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/611_Assignment_4_test/Utility/Scanner.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/611_Assignment_4_test/Utility/Scanner.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Characters/Character.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Characters/Character.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Characters/Heros/Hero.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Characters/Heros/Hero.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Characters/Monsters/Monster.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Characters/Monsters/Monster.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/Events/Market.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Events/Market.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Game/MonsterAndHeroGame.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Game/MonsterAndHeroGame.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Maps/Map.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Maps/Map.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/Maps/RandMap.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Maps/RandMap.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/Prompt/AskPrompt.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Prompt/AskPrompt.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Prompt/PrintPrompt.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Prompt/PrintPrompt.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Space/BushSpace.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Space/BushSpace.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Space/CaveSpace.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Space/CaveSpace.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Space/Cell.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Space/Cell.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Space/HeroNexusSpace.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Space/HeroNexusSpace.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Space/InvalidSpace.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Space/InvalidSpace.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Space/KoulouSpace.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Space/KoulouSpace.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Space/MonsterNexusSpace.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Space/MonsterNexusSpace.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Space/PlainSpace.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Space/PlainSpace.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Utility/Scanner.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Utility/Scanner.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />

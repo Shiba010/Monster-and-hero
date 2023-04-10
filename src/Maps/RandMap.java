@@ -89,11 +89,11 @@ public class RandMap implements Map{ // this is a map that cells is randomly sca
         else if (direction.equals("A")|direction.equals("a")) return move_left(hero);
         else if (direction.equals("S")|direction.equals("s")) return move_down(hero);
         else if (direction.equals("D")|direction.equals("d")) return move_right(hero);
-//        else if (direction.equals("M")|direction.equals("m"))
-//        {
-//            market.start_event(hero);
-//            return false;
-//        }
+        else if (direction.equals("M")|direction.equals("m"))
+        {
+            market.start_event(hero);
+            return false;
+        }
         return false;
     }
 

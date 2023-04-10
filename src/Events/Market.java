@@ -97,19 +97,18 @@ public class Market implements Event{
 
 
     public Hero start_event(Hero hero) {
-        Player player = new Player();
-        while(!player.checkQuit()){ // if quit is not true
-            String input = AskPrompt.ask_hero_to_buy(player.getParty()); // return a string represent index or I or Q;
-            if(input.equals("Q") || input.equals("q")) { // quit if the player type Q
-                player.Quit();
-                return hero;
-            }
-            else if(input.equals("L") || input.equals("l")){ // leave the market
-                return hero;
-            }
+//        Player player = new Player();
+//        while(!player.checkQuit()){ // if quit is not true
+//            String input = AskPrompt.ask_hero_to_buy(hero); // return a string represent index or I or Q;
+//            if(input.equals("Q") || input.equals("q")) { // quit if the player type Q
+//                player.Quit();
+//                return hero;
+//            }
+//            else if(input.equals("L") || input.equals("l")){ // leave the market
+//                return hero;
+//            }
             //int index = Integer.parseInt(input); // change to integer
-            hero = enterMarket(hero);// decide which hero will enter to market
-        }
+        hero = enterMarket(hero);// decide which hero will enter to market
         return hero;
     }
     @Override
