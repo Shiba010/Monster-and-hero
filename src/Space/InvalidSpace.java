@@ -2,11 +2,10 @@ package Space;
 import Players.Player;
 import Characters.Heros.Hero;
 
-public class InvalidSpace implements Cell{
+public class InvalidSpace extends Cell{
     @Override
-    public Hero GoIn(Hero hero) {
-        System.out.println("this is inaccessible space!");
-        return hero;
+    public void GoIn(Hero hero) {
+        System.out.println("You can't move into an inaccessible space!");
     }
 
     @Override
@@ -18,22 +17,17 @@ public class InvalidSpace implements Cell{
 
     }
 
-
     @Override
-    public void GoOut() {
+    public void heroLeaving() {
 
     }
 
     @Override
-    public boolean havePlayer() {
+    public boolean haveHero() {
         return false;
     }
     @Override
     public boolean haveMonster() {
-        return false;
-    }
-    @Override
-    public boolean isHeroNexus() {
         return false;
     }
     @Override

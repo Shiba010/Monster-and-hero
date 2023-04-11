@@ -4,8 +4,8 @@ import java.io.FileNotFoundException;
 import java.util.ArrayList;
 import java.util.List;
 
-import Characters.CharacterFactory;
 import Characters.Heros.Hero;
+import Characters.Character;
 import Space.Cell;
 import Prompt.*;
 import Space.InvalidSpace;
@@ -108,7 +108,7 @@ public class RandMap implements Map{ // this is a map that cells is randomly sca
             PrintPrompt.cannot_move();
             return false;
         }
-        world[positionY][positionX].GoOut(); // go out current cell
+        world[positionY][positionX].heroLeaving(); // go out current cell
         positionY = positionY-1;
         hero.setPositionY(positionY);
         return true;
@@ -123,7 +123,7 @@ public class RandMap implements Map{ // this is a map that cells is randomly sca
             PrintPrompt.cannot_move();
             return false;
         }
-        world[positionY][positionX].GoOut(); // go out current cell
+        world[positionY][positionX].heroLeaving(); // go out current cell
         positionY = positionY + 1;
         hero.setPositionY(positionY);
         return true;
@@ -138,7 +138,7 @@ public class RandMap implements Map{ // this is a map that cells is randomly sca
             PrintPrompt.cannot_move();
             return false;
         }
-        world[positionY][positionX].GoOut(); // go out current cell
+        world[positionY][positionX].heroLeaving(); // go out current cell
         positionX = positionX - 1;
         hero.setPositionX(positionX);
         return true;
@@ -153,16 +153,16 @@ public class RandMap implements Map{ // this is a map that cells is randomly sca
             PrintPrompt.cannot_move();
             return false;
         }
-        world[positionY][positionX].GoOut(); // go out current cell
+        world[positionY][positionX].heroLeaving(); // go out current cell
         positionX = positionX + 1;
         hero.setPositionX(positionX);
         return true;
     }
 
     @Override
-    public Cell getCell(Hero hero){ // return the Cell
-        int positionX = hero.getPositionX();
-        int positionY = hero.getPositionY();
+    public Cell getCell(Character character){ // return the Cell
+        int positionX = character.getPositionX();
+        int positionY = character.getPositionY();
         return world[positionY][positionX];
     }
 

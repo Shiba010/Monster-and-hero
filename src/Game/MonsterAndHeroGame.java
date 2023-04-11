@@ -72,7 +72,7 @@ public class MonsterAndHeroGame implements RoundBasedGame{
             //
             Monster monster = (Monster) temp.getCharacter(i);
             monster.setInitialPosition(i);
-//            game_map.getCell(monster);
+            game_map.getCell(monster).GoIn(monster);
             monsterParty.addMember(monster);
         }
     }
