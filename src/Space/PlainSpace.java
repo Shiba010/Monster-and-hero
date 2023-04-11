@@ -30,14 +30,13 @@ public class PlainSpace implements Cell {
     }
 
     @Override
-    public Hero GoIn(Hero hero) {
+    public void GoIn(Hero hero) {
         setHeroIsHere();
 //        Battle battle = new Battle();
 //        if (battle.event_occur(occur_probability)) {
 //            return battle.start_event(player);
 //        }
         HeroMark = hero.getHeroMark();
-        return hero;
     }
 
     @Override

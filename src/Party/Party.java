@@ -23,9 +23,6 @@ public class Party { // this is the class for party
     public void addMember(Character h){
         party.add(h);
     }
-    public Character getMembers(int index){ //return hero by the index
-        return party.get(index);
-    }
     public int size(){
         return party.size();
     }

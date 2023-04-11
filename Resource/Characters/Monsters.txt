@@ -34,3 +34,4 @@ Jormunngand     8       600       900     20   Spirit
 Rakkshasass     9       550       600     35   Spirit
 Taltecuhtli     10      300       200     50   Spirit
 Casper          1       100       100     50   Spirit
+Giygas          10      900       400     60   Spirit

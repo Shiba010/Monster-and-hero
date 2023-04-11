@@ -297,29 +297,21 @@ abstract public class Hero implements Character{  // this class is Hero object
     }
 
     public void setHeroMark( int index){
-        heroMark = "H"+Integer.toString(index+1);
+        heroMark = "H" + (index + 1);
     }
     public String getHeroMark(){
         return heroMark;
     }
-    public void setInitHeroPosition(int index){
-            positionY = 7;
-            if(index==0){
-                positionX = 1;
-            }
-            else if(index==1){
-                positionX = 4;
-            }
-            else if(index==2){
-                positionX = 7;
-            }
+    public void setInitialPosition(int index){
+        positionY = 7;
+        positionX = (index * 3) + 1;
     }
 
-    public void setPositionX(int newPositionX){
-        positionX = newPositionX;
+    public void setPositionX(int positionX){
+        this.positionX = positionX;
     }
-    public void setPositionY(int newPositionY){
-        positionY = newPositionY;
+    public void setPositionY(int positionY){
+        this.positionY = positionY;
     }
     @Override
     public int getPositionX(){

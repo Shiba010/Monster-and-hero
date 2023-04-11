@@ -2,6 +2,7 @@ package Game;
 import java.io.FileNotFoundException;
 import java.util.List;
 
+import Characters.Monsters.Monster;
 import Items.ItemFactory;
 import Players.Player;
 import Maps.Map;
@@ -19,6 +20,7 @@ public class MonsterAndHeroGame implements RoundBasedGame{
     private Map game_map;
     private Player player = new Player();
     private final int max_people;
+    private Party monsterParty;
 
     public MonsterAndHeroGame() throws FileNotFoundException {
         max_people = 3;
@@ -32,8 +34,8 @@ public class MonsterAndHeroGame implements RoundBasedGame{
         game_map = new RandMap();
         game_map.initial_map();
         //int NumInParty = AskPrompt.ask_how_many_heroes(max_people); // ask how many people is in the party
-        int NumInParty = 3;
-        createParty(NumInParty);
+        createParty(max_people);
+        createMonsterParty();
     }
     public void createParty(int NumInParty){ // create party by the number of members
         CharacterFactory.PrintHeroList();
@@ -53,10 +55,26 @@ public class MonsterAndHeroGame implements RoundBasedGame{
         for (int i = 0; i<NumInParty; i++){
             Hero hero = player.getCharacter(i);
             hero.setHeroMark(i);
-            hero.setInitHeroPosition(i);
+            hero.setInitialPosition(i);
             game_map.getCell(hero).GoIn(hero);
         }
 
+    }
+
+    private void createMonsterParty() {
+        monsterParty = new Party();
+        spawnNewMonsters();
+    }
+
+    public void spawnNewMonsters() {
+        Party temp = CharacterFactory.getMonsterParty(player.getParty().getMaxLevel(), max_people);
+        for (int i = 0; i < temp.size(); i++) {
+            //
+            Monster monster = (Monster) temp.getCharacter(i);
+            monster.setInitialPosition(i);
+//            game_map.getCell(monster);
+            monsterParty.addMember(monster);
+        }
     }
 
 //    @Override
@@ -92,7 +110,7 @@ public class MonsterAndHeroGame implements RoundBasedGame{
             }
             if(checkQuit(dir)) break; // if the input is Q, quit the game
             if(game_map.move(dir, hero)) { // move position on map, true if we successfully move
-                hero = game_map.getCell(hero).GoIn(hero);
+                game_map.getCell(hero).GoIn(hero);
                 // evoke the event, and after the event is over, it would update the party status
             }
             endARound();

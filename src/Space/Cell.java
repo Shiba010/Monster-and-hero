@@ -1,8 +1,9 @@
 package Space;
 import Players.Player;
 import Characters.Heros.Hero;
+
 public interface Cell {
-    Hero GoIn(Hero hero); //player goin
+    void GoIn(Hero hero); //player goin
     void setHeroIsHere();
     void setMonsterIsHere();
     void GoOut();

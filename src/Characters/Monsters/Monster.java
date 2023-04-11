@@ -142,6 +142,11 @@ public class Monster implements Character{
         return title;
     }
 
+    public void setInitialPosition(int index) { // index is 0-based
+        positionY = 0;
+        positionX = index * 3;
+    }
+
     @Override
     public int getPositionX(){
         return positionX;
@@ -149,5 +154,13 @@ public class Monster implements Character{
     @Override
     public int getPositionY(){
         return positionY;
+    }
+
+    public void setPositionX(int positionX) {
+        this.positionX = positionX;
+    }
+
+    public void setPositionY(int positionY) {
+        this.positionY = positionY;
     }
 }
