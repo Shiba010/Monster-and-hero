@@ -118,6 +118,9 @@ public class RandMap implements Map{ // this is a map that cells is randomly sca
         else if (direction.equals("R")|direction.equals("r"))
         {
             return recall(hero);
+        } else if (direction.equalsIgnoreCase("at")) {
+            // Attack monster
+            return false;
         }
         return false;
     }
@@ -225,6 +228,10 @@ public class RandMap implements Map{ // this is a map that cells is randomly sca
         potion.consume(hero); // use Potion
         //hero_party.updateCharacterBYSearch(hero); // update hero party
         return;
+    }
+
+    public void attack() {
+
     }
 
 //    public void useSpell(Hero hero){
@@ -351,10 +358,10 @@ public class RandMap implements Map{ // this is a map that cells is randomly sca
         if (!heroes.isEmpty()) {
             Hero toBeAttacked = heroes.get(RandomGenerator.RandomIndex(heroes.size()));
             monster.attack(toBeAttacked);
-            // TODO check if hero has fainted
             // if hero fainted, make them respawn in original nexus, restore all HP and Mana, take away $100
             if (!toBeAttacked.checkAlive()) {
-                // Respawn in original nexus
+                recall(toBeAttacked);
+                getCell(toBeAttacked).GoIn(toBeAttacked);
                 toBeAttacked.revive();
             }
             return false;
