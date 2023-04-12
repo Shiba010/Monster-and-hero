@@ -98,14 +98,26 @@ public class RandMap implements Map{ // this is a map that cells is randomly sca
         return false;
     }
 
-
+    private boolean checkValidMove(Hero hero, int destinationY, int destinationX) {
+        if (destinationY < 0 || destinationX >= world_size_y)
+            return false; // Y coordinate out of bounds
+        if (destinationX < 0 || destinationX >= world_size_x)
+            return false; // X coordinate out of bounds
+        if (world[destinationY][destinationX] instanceof InvalidSpace)
+            return false; // inaccessible
+        // if destination space already has a hero
+        if (world[destinationY][destinationX].haveHero())
+            return false;
+        // hero cannot move past a monster in the same lane
+        Monster monster = monsterInRange(hero);
+        return monster == null || destinationY >= monster.getPositionY();
+    }
 
     @Override
     public boolean move_up(Hero hero) { //return false if we cant move up
         int positionX=hero.getPositionX();
         int positionY=hero.getPositionY();
-        if(positionX - 1 < 0 || world[positionY-1][positionX] instanceof InvalidSpace){
-            // if the pLace is out of bounds or inaccessible;
+        if (!checkValidMove(hero, positionY - 1, positionX)) {
             PrintPrompt.cannot_move();
             return false;
         }
@@ -119,8 +131,7 @@ public class RandMap implements Map{ // this is a map that cells is randomly sca
     public boolean move_down(Hero hero) { //return false if we cant move sown
         int positionX = hero.getPositionX();
         int positionY = hero.getPositionY();
-        if(positionY + 1 >= world_size_y|| world[positionY+1][positionX] instanceof InvalidSpace){
-            // if the place is out of bounds or inaccessible;
+        if (!checkValidMove(hero, positionY + 1, positionX)) {
             PrintPrompt.cannot_move();
             return false;
         }
@@ -134,8 +145,7 @@ public class RandMap implements Map{ // this is a map that cells is randomly sca
     public boolean move_left(Hero hero) { //return false if we cant move left
         int positionX = hero.getPositionX();
         int positionY = hero.getPositionY();
-        if(positionX - 1 < 0 || world[positionY][positionX-1] instanceof InvalidSpace){
-            // if the place is out of bounds or inaccessible;
+        if (!checkValidMove(hero, positionY, positionX - 1)) {
             PrintPrompt.cannot_move();
             return false;
         }
@@ -149,8 +159,7 @@ public class RandMap implements Map{ // this is a map that cells is randomly sca
     public boolean move_right(Hero hero) { //return false if we cant move right
         int positionX = hero.getPositionX();
         int positionY = hero.getPositionY();
-        if(positionX + 1 >= world_size_x || world[positionY][positionX+1] instanceof InvalidSpace){
-            // if the place is out of bounds or inaccessible;
+        if (!checkValidMove(hero, positionY, positionX + 1)) {
             PrintPrompt.cannot_move();
             return false;
         }
@@ -191,6 +200,22 @@ public class RandMap implements Map{ // this is a map that cells is randomly sca
             }
         }
         return inRange;
+    }
+
+    @Override
+    public Monster monsterInRange(Hero hero) {
+        int positionX = hero.getPositionX();
+        int positionY = hero.getPositionY();
+        for (int i = positionX - 1; i <= positionX + 1; i++) {
+            try {
+                if (world[positionY][i].haveMonster())
+                    return world[positionY][i].getMonster();
+                if (world[positionY-1][i].haveMonster())
+                    return world[positionY-1][i].getMonster();
+            } catch (IndexOutOfBoundsException ignored) {
+            }
+        }
+        return null;
     }
 
     @Override
