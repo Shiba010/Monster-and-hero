@@ -3,6 +3,7 @@ package Maps;
 import java.io.FileNotFoundException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 
 import Characters.Heros.Hero;
 import Characters.Character;
@@ -21,6 +22,7 @@ import Space.KoulouSpace;
 import Space.HeroNexusSpace;
 import Space.MonsterNexusSpace;
 import Events.Market;
+import Utility.Scanner;
 
 
 
@@ -34,7 +36,7 @@ public class RandMap implements Map{ // this is a map that cells is randomly sca
     private final double cave_num;
     private final double koulou_num;
     private Market market = new Market();
-
+    private Scanner s = new Scanner();
 
     public RandMap(){
         // tatal 64 cells 16+6+6+9*4
@@ -109,8 +111,88 @@ public class RandMap implements Map{ // this is a map that cells is randomly sca
             usePotion(hero);
             return false;
         }
-
+        else if (direction.equals("T")|direction.equals("t"))
+        {
+            return teleport(hero);
+        }
+        else if (direction.equals("R")|direction.equals("r"))
+        {
+            return recall(hero);
+        }
         return false;
+    }
+
+    public boolean teleport(Hero hero){
+        AskPrompt.ask_teleport();
+        int currentPositionX;
+        int currentPositionY;
+        currentPositionX= hero.getPositionX();
+        currentPositionY= hero.getPositionY();
+
+        int destinationX;
+        int destinationY;
+        destinationX = s.ScanInt();
+        destinationY = s.ScanInt();
+        while(!checkValidMove(hero, destinationY, destinationX)){
+            PrintPrompt.invalidTeleport();
+            AskPrompt.ask_teleport();
+            destinationX = s.ScanInt();
+            destinationY = s.ScanInt();
+        }
+        world[currentPositionY][currentPositionX].heroLeaving();
+        hero.setPositionX(destinationX);
+        hero.setPositionY(destinationY);
+        return true;
+    }
+
+    public boolean recall(Hero hero){
+        int currentPositionX;
+        int currentPositionY;
+        currentPositionX= hero.getPositionX();
+        currentPositionY= hero.getPositionY();
+
+        int destinationX;
+        int destinationY;
+        if(Objects.equals(hero.getHeroMark(), "H1")){
+            destinationX = 1;
+            destinationY = 7;
+            if (world[destinationY][destinationX].haveHero()) {
+                PrintPrompt.invalidRecall();
+                return false;
+            }
+
+            world[currentPositionY][currentPositionX].heroLeaving();
+            hero.setPositionY(destinationY);
+            hero.setPositionX(destinationX);
+            return true;
+        }
+
+        else if(Objects.equals(hero.getHeroMark(), "H2")){
+            destinationX = 4;
+            destinationY = 7;
+            if (world[destinationY][destinationX].haveHero()) {
+                PrintPrompt.invalidRecall();
+                return false;
+            }
+            world[currentPositionY][currentPositionX].heroLeaving();
+            hero.setPositionY(destinationY);
+            hero.setPositionX(destinationX);
+            return true;
+        }
+
+        else if(Objects.equals(hero.getHeroMark(), "H3")){
+            destinationX = 7;
+            destinationY = 7;
+            if (world[destinationY][destinationX].haveHero()){
+                PrintPrompt.invalidRecall();
+                return false;
+            }
+            world[currentPositionY][currentPositionX].heroLeaving();
+            hero.setPositionY(destinationY);
+            hero.setPositionX(destinationX);
+            return true;
+        }
+       return false;
     }
 
 
@@ -144,6 +226,44 @@ public class RandMap implements Map{ // this is a map that cells is randomly sca
         //hero_party.updateCharacterBYSearch(hero); // update hero party
         return;
     }
+
+//    public void useSpell(Hero hero){
+//        Player player = new Player();
+//        String index_string = AskPrompt.ask_which_potion_spell(hero, hero.getSpell_inventory());
+//        //Ask the player which spell/potion wants to use.
+//        if (index_string.equals("Q")|index_string.equals("q")) {//quit
+//            player.Quit();
+//            return;
+//        } else if (index_string.equals("L")|index_string.equals("l")) return; // ao back to choose action
+//        int index = Integer.parseInt(index_string);
+//        Item item = hero.getSpell_inventory().get(index);
+//        Spell spell = (Spell) item;
+//        //**********************************
+//
+//            if (hero.getSpellMana(index) > hero.getMana()) {
+//                PrintPrompt.Print_spell_cannot_use();
+//                return;
+//            }
+//            String Monster_index_string = AskPrompt.ask_Monster(hero_party, monster_party); // ask player which monster should attack
+//            if (Monster_index_string.equals("Q")|Monster_index_string.equals("q")) {//quit
+//                player.Quit();
+//                return;
+//            } else if (Monster_index_string.equals("L")|Monster_index_string.equals("l")) return; // ao back to choose action
+//            Monster monster = (Monster) monster_party.getCharacter(Integer.parseInt(Monster_index_string)); //get monster
+//            hero.useSpell(monster, index); //use spell
+//            hero_party.updateCharacterBYSearch(hero); // update hero party
+//
+//            if (!monster.checkAlive()) {
+//                hero_party.gainMoneyExp(monster.getDeadGold(), monster.getDeadExp(1));
+//                monster_party.remove(monster);
+//
+//            return;
+//
+//        }
+//
+//        return;
+//    }
+
 
 
 

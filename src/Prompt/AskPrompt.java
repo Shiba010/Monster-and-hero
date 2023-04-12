@@ -280,6 +280,11 @@ public class AskPrompt { // this class is used to communicate with player and te
         }
     }
 
+    public static void ask_teleport(){
+        System.out.println("Where do you want to teleport?");
+        System.out.println("please enter the position(x, y)?");
+    }
+
     public static String ask_equip(Hero hero, List<Item> equipments) { //ask player which equipment should the hero equip?
         if (equipments.isEmpty()) { // when the list is empty
             System.out.println("There is no items that can be equiped!!!");
@@ -388,15 +393,17 @@ public class AskPrompt { // this class is used to communicate with player and te
         }
     }
 
+
+
     public static String ask_which_potion(Hero hero, List<Item> potion) { //ask which potion or spell the player wants to use in a battle
         if (potion.isEmpty()) { // when the list is empty
-            System.out.println("There is no Spell/Potion that can be used!!!");
+            System.out.println("There is no Potion that can be used!!!");
             return "L";
         }
         System.out.println(String.format("\nHere are %s have: ", hero.getName()));
         PrintPrompt.Print_items(potion);
         while (true) {
-            System.out.println(String.format("Which Spell/Potion should %s use?", hero.getName()));
+            System.out.println(String.format("Which Potion should %s use?", hero.getName()));
             System.out.println("[I/i] info");
             System.out.println("[L/l] leave");
             System.out.println("[Q/q] quit");
@@ -425,13 +432,13 @@ public class AskPrompt { // this class is used to communicate with player and te
 
     public static String ask_which_spell(Hero hero, List<Item> spell) { //ask which potion or spell the player wants to use in a battle
         if (spell.isEmpty()) { // when the list is empty
-            System.out.println("There is no Spell/Potion that can be used!!!");
+            System.out.println("There is no Spell that can be used!!!");
             return "L";
         }
         System.out.println(String.format("\nHere are %s have: ", hero.getName()));
         PrintPrompt.Print_items(spell);
         while (true) {
-            System.out.println(String.format("Which Spell/Potion should %s use?", hero.getName()));
+            System.out.println(String.format("Which Spell should %s use?", hero.getName()));
             System.out.println("[I/i] info");
             System.out.println("[L/l] leave");
             System.out.println("[Q/q] quit");

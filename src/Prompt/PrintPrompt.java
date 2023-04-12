@@ -63,6 +63,14 @@ public class PrintPrompt {
 //        System.out.println("H is your hero location on the map: ");
     }
 
+    public static void invalidTeleport(){
+        System.out.println("Invalid teleport! Please try again.");
+    }
+    public static void invalidRecall(){
+        System.out.println("Invalid Recall.");
+    }
+
+
     public static void Print_heroes(List<Hero> Hero_list){ // print heroes list, for player to select heroes
         String title = String.format("   %-25s %-15s %-10s %-10s %-10s %-10s %-10s %-10s %-10s\n",
                 "Name", "HP", "level","mana","str","agi","dex","money","exp");
