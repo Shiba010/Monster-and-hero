@@ -34,6 +34,9 @@ abstract public class Hero implements Character{  // this class is Hero object
     private int positionY;
     private final List<Item> equipment_inventory = new ArrayList<Item>(); // inventory that only contains equipment
     private final List<Item> consumables_inventory = new ArrayList<Item>(); // inventory that only contains consumable
+    private final List<Item> potion_inventory = new ArrayList<Item>();
+    private final List<Item> spell_inventory = new ArrayList<Item>();
+
     private Weaponry weapon; // equipment is weapon that is on hero's hand
     private Armory Arm = null; // Armory on hero
     private boolean move; // if the hero has moved in a battle, this will be true;
@@ -87,8 +90,15 @@ abstract public class Hero implements Character{  // this class is Hero object
         if(item instanceof Equipable){
             equipment_inventory.add(item);
         }
-        else if (item instanceof Consumable) {
+        else if (item instanceof Consumable){
             consumables_inventory.add(item);
+        }
+
+        if (item instanceof Potions) {
+            potion_inventory.add(item);
+        }
+        if (item instanceof Spell) {
+            spell_inventory.add(item);
         }
     }
 
@@ -220,19 +230,21 @@ abstract public class Hero implements Character{  // this class is Hero object
         PrintPrompt.equip_print(this, e);
     }
     public void useSpell(Monster monster, int index){ // use spell
-        if(consumables_inventory.get(index) instanceof Spell){ // if the index we choose is a spell
-            Spell spell = (Spell) consumables_inventory.remove(index);
-            mana -= spell.getMana_cost(); // mana lost
-            monster.getSpellAffect(spell, this);
-            int spell_damage = (int) Math.round(attack_factor*(spell.getDamage() + spell.getDamage()*(dex/dex_damage_factor))); // calculate spell damage
-            monster.takeDamage(spell_damage, this ); //get damage
-        }
+        //if(consumables_inventory.get(index) instanceof Spell){ // if the index we choose is a spell
+        Spell spell = (Spell) spell_inventory.remove(index);
+        consumables_inventory.remove(spell);
+        mana -= spell.getMana_cost(); // mana lost
+        monster.getSpellAffect(spell, this);
+        int spell_damage = (int) Math.round(attack_factor*(spell.getDamage() + spell.getDamage()*(dex/dex_damage_factor))); // calculate spell damage
+        monster.takeDamage(spell_damage, this ); //get damage
+
     }
     public int getSpellMana(int index){
-        Spell spell = (Spell) consumables_inventory.get(index);
+        Spell spell = (Spell) spell_inventory.get(index);
         return spell.getMana_cost();
     }
     public void usePotion(Potions potion){
+        potion_inventory.remove(potion);
         consumables_inventory.remove(potion);
     }
 
@@ -242,6 +254,14 @@ abstract public class Hero implements Character{  // this class is Hero object
 
     public List<Item> getConsumables_inventory() {
         return consumables_inventory;
+    }
+
+    public List<Item> getSpell_inventory() {
+        return spell_inventory;
+    }
+
+    public List<Item> getPotion_inventory() {
+        return potion_inventory;
     }
 
 

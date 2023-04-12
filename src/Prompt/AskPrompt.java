@@ -79,9 +79,12 @@ public class AskPrompt { // this class is used to communicate with player and te
             System.out.print("[Q/q] quit\n");
             String dir = s.ScanString();
             if (dir.equals("W") || dir.equals("A") || dir.equals("S") || dir.equals("D") || dir.equals("Q")
-            ||dir.equals("w") || dir.equals("a") || dir.equals("s") || dir.equals("d") || dir.equals("q"))
+                    ||dir.equals("w") || dir.equals("a") || dir.equals("s") || dir.equals("d") || dir.equals("q")
+                    || dir.equals("E") || dir.equals("e") || dir.equals("P") || dir.equals("p")
+                    || dir.equals("T") || dir.equals("t") || dir.equals("R") || dir.equals("r"))
             {
                 return dir;
+
             } else if (dir.equals("I") || dir.equals("i"))
                 System.out.print(hero); // if the input is I print information
             else System.out.println("Please enter a valid direction !");
@@ -314,6 +317,76 @@ public class AskPrompt { // this class is used to communicate with player and te
             }
             int index_int = Integer.parseInt(index);
             if (0 <= index_int && index_int < Consumables.size()) {
+                return index;
+            }
+            System.out.println("Please select a item again");
+        }
+    }
+
+    public static String ask_which_potion(Hero hero, List<Item> potion) { //ask which potion or spell the player wants to use in a battle
+        if (potion.isEmpty()) { // when the list is empty
+            System.out.println("There is no Spell/Potion that can be used!!!");
+            return "L";
+        }
+        System.out.println(String.format("\nHere are %s have: ", hero.getName()));
+        PrintPrompt.Print_items(potion);
+        while (true) {
+            System.out.println(String.format("Which Spell/Potion should %s use?", hero.getName()));
+            System.out.println("[I/i] info");
+            System.out.println("[L/l] leave");
+            System.out.println("[Q/q] quit");
+            System.out.print("Please Enter the number: ");
+            String index = s.ScanString();
+            if (index.equals("I") || index.equals("i")) { // quit
+                PrintPrompt.Print_items(potion);
+                continue;
+            } else if (index.equals("Q") || index.equals("L") || index.equals("q") || index.equals("l")) { // quit the game
+                return index;
+            } else {
+                try {
+                    Integer.parseInt(index);
+                } catch (Exception e) {
+                    System.out.println("invalid input! please input a integer\n");
+                    continue;
+                }
+            }
+            int index_int = Integer.parseInt(index);
+            if (0 <= index_int && index_int < potion.size()) {
+                return index;
+            }
+            System.out.println("Please select a item again");
+        }
+    }
+
+    public static String ask_which_spell(Hero hero, List<Item> spell) { //ask which potion or spell the player wants to use in a battle
+        if (spell.isEmpty()) { // when the list is empty
+            System.out.println("There is no Spell/Potion that can be used!!!");
+            return "L";
+        }
+        System.out.println(String.format("\nHere are %s have: ", hero.getName()));
+        PrintPrompt.Print_items(spell);
+        while (true) {
+            System.out.println(String.format("Which Spell/Potion should %s use?", hero.getName()));
+            System.out.println("[I/i] info");
+            System.out.println("[L/l] leave");
+            System.out.println("[Q/q] quit");
+            System.out.print("Please Enter the number: ");
+            String index = s.ScanString();
+            if (index.equals("I") || index.equals("i")) { // quit
+                PrintPrompt.Print_items(spell);
+                continue;
+            } else if (index.equals("Q") || index.equals("L") || index.equals("q") || index.equals("l")) { // quit the game
+                return index;
+            } else {
+                try {
+                    Integer.parseInt(index);
+                } catch (Exception e) {
+                    System.out.println("invalid input! please input a integer\n");
+                    continue;
+                }
+            }
+            int index_int = Integer.parseInt(index);
+            if (0 <= index_int && index_int < spell.size()) {
                 return index;
             }
             System.out.println("Please select a item again");

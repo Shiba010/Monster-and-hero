@@ -76,7 +76,6 @@ public class Potions implements Item, Consumable{
                     break;
             }
         }
-
     }
 
     @Override

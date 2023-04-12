@@ -7,6 +7,9 @@ import java.util.List;
 import Characters.Heros.Hero;
 import Characters.Character;
 import Characters.Monsters.Monster;
+import Items.Item;
+import Items.Potions;
+import Items.Spells.Spell;
 import Players.Player;
 import Space.Cell;
 import Prompt.*;
@@ -101,22 +104,63 @@ public class RandMap implements Map{ // this is a map that cells is randomly sca
             equip(hero);
             return false;
         }
+        else if (direction.equals("P")|direction.equals("p"))
+        {
+            usePotion(hero);
+            return false;
+        }
 
         return false;
     }
 
-    public void equip(Hero hero){ //Hero equip weapon or armor
+
+    public void equip(Hero hero) { //Hero equip weapon or armor
         Player player = new Player();
         String index_string = AskPrompt.ask_equip(hero, hero.getEquipment_inventory());
         //Ask the player that what items should this hero equip
-        if (index_string.equals("Q")|index_string.equals("q")) {//quit
+        if (index_string.equals("Q") | index_string.equals("q")) {//quit
             player.Quit();
             return;
-        } else if (index_string.equals("L")|index_string.equals("l")) return;
+        } else if (index_string.equals("L") | index_string.equals("l")) return;
         ; // leave the process of choosing equipment
 
         hero.equip(Integer.parseInt(index_string));
         //hero_party.updateCharacterBYSearch(hero); // update hero party
+    }
+
+    public void usePotion(Hero hero){
+        Player player = new Player();
+        String index_string = AskPrompt.ask_which_potion(hero, hero.getPotion_inventory());
+        //Ask the player which spell/potion wants to use.
+        if (index_string.equals("Q")|index_string.equals("q")) {//quit
+            player.Quit();
+            return;
+        } else if (index_string.equals("L")|index_string.equals("l")) return; // ao back to choose action
+        int index = Integer.parseInt(index_string);
+        Item item = hero.getPotion_inventory().get(index);
+        //**********************************
+        Potions potion = (Potions) item;
+        potion.consume(hero); // use Potion
+        //hero_party.updateCharacterBYSearch(hero); // update hero party
+        return;
+    }
+
+
+
+
+    private boolean checkValidMove(Hero hero, int destinationY, int destinationX) {
+        if (destinationY < 0 || destinationX >= world_size_y)
+            return false; // Y coordinate out of bounds
+        if (destinationX < 0 || destinationX >= world_size_x)
+            return false; // X coordinate out of bounds
+        if (world[destinationY][destinationX] instanceof InvalidSpace)
+            return false; // inaccessible
+        // if destination space already has a hero
+        if (world[destinationY][destinationX].haveHero())
+            return false;
+        // hero cannot move past a monster in the same lane
+        Monster monster = monsterInRange(hero);
+        return monster == null || destinationY >= monster.getPositionY();
 
     }
 
@@ -124,8 +168,7 @@ public class RandMap implements Map{ // this is a map that cells is randomly sca
     public boolean move_up(Hero hero) { //return false if we cant move up
         int positionX=hero.getPositionX();
         int positionY=hero.getPositionY();
-        if(positionX - 1 < 0 || world[positionY-1][positionX] instanceof InvalidSpace){
-            // if the pLace is out of bounds or inaccessible;
+        if (!checkValidMove(hero, positionY - 1, positionX)) {
             PrintPrompt.cannot_move();
             return false;
         }
@@ -139,8 +182,7 @@ public class RandMap implements Map{ // this is a map that cells is randomly sca
     public boolean move_down(Hero hero) { //return false if we cant move sown
         int positionX = hero.getPositionX();
         int positionY = hero.getPositionY();
-        if(positionY + 1 >= world_size_y|| world[positionY+1][positionX] instanceof InvalidSpace){
-            // if the place is out of bounds or inaccessible;
+        if (!checkValidMove(hero, positionY + 1, positionX)) {
             PrintPrompt.cannot_move();
             return false;
         }
@@ -154,8 +196,7 @@ public class RandMap implements Map{ // this is a map that cells is randomly sca
     public boolean move_left(Hero hero) { //return false if we cant move left
         int positionX = hero.getPositionX();
         int positionY = hero.getPositionY();
-        if(positionX - 1 < 0 || world[positionY][positionX-1] instanceof InvalidSpace){
-            // if the place is out of bounds or inaccessible;
+        if (!checkValidMove(hero, positionY, positionX - 1)) {
             PrintPrompt.cannot_move();
             return false;
         }
@@ -169,8 +210,7 @@ public class RandMap implements Map{ // this is a map that cells is randomly sca
     public boolean move_right(Hero hero) { //return false if we cant move right
         int positionX = hero.getPositionX();
         int positionY = hero.getPositionY();
-        if(positionX + 1 >= world_size_x || world[positionY][positionX+1] instanceof InvalidSpace){
-            // if the place is out of bounds or inaccessible;
+        if (!checkValidMove(hero, positionY, positionX + 1)) {
             PrintPrompt.cannot_move();
             return false;
         }
@@ -184,10 +224,16 @@ public class RandMap implements Map{ // this is a map that cells is randomly sca
     public boolean move_down(Monster monster) {
         int positionX = monster.getPositionX();
         int positionY = monster.getPositionY();
-        if (world[positionY][positionX].haveHero())
-            return false;
         if (world[positionY+1][positionX].haveMonster())
             return false;
+        // if there are heroes within the monster's range, stop moving and attack one of them
+        List<Hero> heroes = heroesInRange(monster);
+        if (!heroes.isEmpty()) {
+            Hero toBeAttacked = heroes.get(RandomGenerator.RandomIndex(heroes.size()));
+            monster.attack(toBeAttacked);
+            // TODO check if hero has fainted
+            return false;
+        }
         world[positionY][positionX].monsterLeaving();
         monster.setPositionY(positionY + 1);
         return true;
@@ -213,6 +259,22 @@ public class RandMap implements Map{ // this is a map that cells is randomly sca
             }
         }
         return inRange;
+    }
+
+    @Override
+    public Monster monsterInRange(Hero hero) {
+        int positionX = hero.getPositionX();
+        int positionY = hero.getPositionY();
+        for (int i = positionX - 1; i <= positionX + 1; i++) {
+            try {
+                if (world[positionY][i].haveMonster())
+                    return world[positionY][i].getMonster();
+                if (world[positionY-1][i].haveMonster())
+                    return world[positionY-1][i].getMonster();
+            } catch (IndexOutOfBoundsException ignored) {
+            }
+        }
+        return null;
     }
 
     @Override
