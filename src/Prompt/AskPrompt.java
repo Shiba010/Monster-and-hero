@@ -1,4 +1,5 @@
 package Prompt;
+import Maps.Map;
 import Utility.Scanner;
 import java.util.List;
 
@@ -61,119 +62,9 @@ public class AskPrompt { // this class is used to communicate with player and te
         return num;
     }
 
-    public static String ask_which_direction(Hero hero) { // ask which direction should the party go
+    public static String ask_which_direction(Hero hero, Map map) { // ask which direction should the party go
         while (true) {
-            System.out.println("What will " + hero.getName() + " (" + hero.getHeroMark() + ") do?");
-            System.out.println("COMMANDS: ");
-            System.out.print("[W/w] up\t");
-            System.out.print("[A/a] left\t");
-            System.out.print("[S/s] down\t");
-            System.out.println("[D/d] right\t");
-
-            System.out.print("[T/t] teleport\t");
-            System.out.print("[R/r] recall\t");
-            System.out.print("[P/p] use potion\t");
-            System.out.println("[E/e] equip weapon or armor\t");
-
-            System.out.print("[I/i] info\t");
-            System.out.print("[Q/q] quit\n");
-            String dir = s.ScanString();
-            if (dir.equals("W") || dir.equals("A") || dir.equals("S") || dir.equals("D") || dir.equals("Q")
-                    ||dir.equals("w") || dir.equals("a") || dir.equals("s") || dir.equals("d") || dir.equals("q")
-                    || dir.equals("E") || dir.equals("e") || dir.equals("P") || dir.equals("p")
-                    || dir.equals("T") || dir.equals("t") || dir.equals("R") || dir.equals("r"))
-            {
-                return dir;
-
-            } else if (dir.equals("I") || dir.equals("i"))
-                System.out.print(hero); // if the input is I print information
-            else System.out.println("Please enter a valid direction !");
-        }
-    }
-
-    public static String ask_which_direction_Nexus(Hero hero) { // ask which direction should the party go
-        while (true) {
-            System.out.println("What will " + hero.getName() + " (" + hero.getHeroMark() + ") do?");
-            System.out.println("COMMANDS: ");
-            System.out.print("[W/w] up\t");
-            System.out.print("[A/a] left\t");
-            System.out.print("[S/s] down\t");
-            System.out.println("[D/d] right\t");
-
-            System.out.print("[T/t] teleport\t");
-            System.out.print("[R/r] recall\t");
-            System.out.print("[P/p] use potion\t");
-            System.out.println("[E/e] equip weapon or armor\t");
-
-            System.out.print("[M/m] Market\t");
-            System.out.print("[I/i] info\t");
-            System.out.print("[Q/q] quit\n");
-            String dir = s.ScanString();
-            if (dir.equals("W") || dir.equals("A") || dir.equals("S") || dir.equals("D") || dir.equals("Q")
-                    || dir.equals("w") || dir.equals("a") || dir.equals("s") || dir.equals("d") || dir.equals("q")
-                    || dir.equals("M") || dir.equals("m") || dir.equals("E") || dir.equals("e")
-                    || dir.equals("T") || dir.equals("t") || dir.equals("R") || dir.equals("r")
-                    || dir.equals("P") || dir.equals("p") )
-            {
-                return dir;
-            } else if (dir.equals("I") || dir.equals("i"))
-                System.out.print(hero); // if the input is I print information
-            else {
-                System.out.println("Please enter a valid direction !");
-            }
-        }
-    }
-
-    public static String ask_which_direction_attack(Hero hero) { // ask which direction should the party go
-        while (true) {
-            System.out.println("What will " + hero.getName() + " (" + hero.getHeroMark() + ") do?");
-            System.out.println("COMMANDS: ");
-            System.out.print("[W/w] up\t");
-            System.out.print("[A/a] left\t");
-            System.out.print("[S/s] down\t");
-            System.out.println("[D/d] right\t");
-
-            System.out.print("[T/t] teleport\t");
-            System.out.print("[R/r] recall\t");
-            System.out.print("[P/p] use potion\t");
-            System.out.println("[E/e] equip weapon or armor\t");
-
-            System.out.println("[At] attack the monster\t");
-            System.out.println("[Sp] use spell the monster\t");
-            System.out.print("[I/i] info\t");
-            System.out.print("[Q/q] quit\n");
-            String dir = s.ScanString();
-            if (dir.equals("W") || dir.equals("A") || dir.equals("S") || dir.equals("D") || dir.equals("Q")
-                    ||dir.equals("w") || dir.equals("a") || dir.equals("s") || dir.equals("d") || dir.equals("q")
-                    || dir.equals("E") || dir.equals("e") || dir.equals("P") || dir.equals("p") || dir.equals("At")
-                    || dir.equals("T") || dir.equals("t") || dir.equals("R") || dir.equals("r") || dir.equals("Sp"))
-            {
-                return dir;
-
-            } else if (dir.equals("I") || dir.equals("i"))
-                System.out.print(hero); // if the input is I print information
-            else System.out.println("Please enter a valid direction !");
-        }
-    }
-
-    public static String ask_which_direction_Nexus_attack(Hero hero) { // ask which direction should the party go
-        while (true) {
-            System.out.println("What will " + hero.getName() + " (" + hero.getHeroMark() + ") do?");
-            System.out.println("COMMANDS: ");
-            System.out.print("[W/w] up\t");
-            System.out.print("[A/a] left\t");
-            System.out.print("[S/s] down\t");
-            System.out.println("[D/d] right\t");
-
-            System.out.print("[T/t] teleport\t");
-            System.out.print("[R/r] recall\t");
-            System.out.print("[P/p] use potion\t");
-            System.out.println("[E/e] equip weapon or armor\t");
-
-            System.out.println("[At] attack the monster\t");
-            System.out.print("[M/m] Market\t");
-            System.out.print("[I/i] info\t");
-            System.out.print("[Q/q] quit\n");
+            PrintPrompt.printCommands(hero, map);
             String dir = s.ScanString();
             if (dir.equals("W") || dir.equals("A") || dir.equals("S") || dir.equals("D") || dir.equals("Q")
                     || dir.equals("w") || dir.equals("a") || dir.equals("s") || dir.equals("d") || dir.equals("q")

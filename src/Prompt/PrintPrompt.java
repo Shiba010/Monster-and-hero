@@ -1,4 +1,5 @@
 package Prompt;
+import Characters.Monsters.Monster;
 import Items.Equipable;
 import Items.Item;
 import Items.Weaponry;
@@ -184,5 +185,32 @@ public class PrintPrompt {
         System.out.println("Now quitting.");
         System.out.println("Thanks for playing!");
         System.exit(0);
+    }
+
+    public static void printCommands(Hero hero, Map map) {
+        System.out.println("What will " + hero.getName() + " (" + hero.getHeroMark() + ") do?");
+        System.out.println("COMMANDS: ");
+        System.out.print("[W/w] up; ");
+        System.out.print("[A/a] left; ");
+        System.out.print("[S/s] down; ");
+        System.out.println("[D/d] right; ");
+
+        System.out.print("[T/t] teleport; ");
+        System.out.print("[R/r] recall; ");
+        System.out.print("[P/p] use potion; ");
+        System.out.print("[E/e] equip weapon or armor; ");
+
+        System.out.print("[I/i] info; ");
+        System.out.print("[Q/q] quit\n");
+        // if hero is in nexus, show command for market
+        if(map.getCell(hero).isHeroNexus())
+            System.out.println("[M/m] Market");
+        // if monster in hero's range, show attack commands
+        Monster monster = map.monsterInRange(hero);
+        if (monster != null) {
+            System.out.println("[At] attack the monster");
+            System.out.println("[Sp] use spell on monster");
+        }
+
     }
 }

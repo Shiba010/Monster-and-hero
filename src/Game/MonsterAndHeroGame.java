@@ -110,17 +110,13 @@ public class MonsterAndHeroGame implements RoundBasedGame{
             Hero hero = player.getCharacter(i);
             Cell cell = game_map.getCell(hero); // current cell that we are going to enter
             String dir;
-            if(cell.isHeroNexus()){
-                dir = AskPrompt.ask_which_direction_Nexus(hero);
-            } else {
-                dir = AskPrompt.ask_which_direction(hero);
-            }
+            dir = AskPrompt.ask_which_direction(hero, game_map);
             if(checkQuit(dir)) // if the input is Q, quit the game
                 PrintPrompt.handleQuit();
 
             while(dir.equals("M") || dir.equals("m")){ // do action in market doesn't make a turn
                 game_map.move(dir, hero);
-                dir = AskPrompt.ask_which_direction(hero);
+                dir = AskPrompt.ask_which_direction(hero, game_map);
             }
 
             if(game_map.move(dir, hero)) { // move position on map, true if we successfully move
