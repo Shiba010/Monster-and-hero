@@ -117,6 +117,12 @@ public class MonsterAndHeroGame implements RoundBasedGame{
             }
             if(checkQuit(dir)) // if the input is Q, quit the game
                 PrintPrompt.handleQuit();
+
+            while(dir.equals("M") || dir.equals("m")){ // do action in market doesn't make a turn
+                game_map.move(dir, hero);
+                dir = AskPrompt.ask_which_direction(hero);
+            }
+
             if(game_map.move(dir, hero)) { // move position on map, true if we successfully move
                 game_map.getCell(hero).GoIn(hero);
                 // evoke the event, and after the event is over, it would update the party status

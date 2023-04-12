@@ -7,6 +7,7 @@ import java.util.List;
 import Characters.Heros.Hero;
 import Characters.Character;
 import Characters.Monsters.Monster;
+import Players.Player;
 import Space.Cell;
 import Prompt.*;
 import Space.InvalidSpace;
@@ -95,10 +96,29 @@ public class RandMap implements Map{ // this is a map that cells is randomly sca
             market.start_event(hero);
             return false;
         }
+        else if (direction.equals("E")|direction.equals("e"))
+        {
+            equip(hero);
+            return false;
+        }
+
         return false;
     }
 
+    public void equip(Hero hero){ //Hero equip weapon or armor
+        Player player = new Player();
+        String index_string = AskPrompt.ask_equip(hero, hero.getEquipment_inventory());
+        //Ask the player that what items should this hero equip
+        if (index_string.equals("Q")|index_string.equals("q")) {//quit
+            player.Quit();
+            return;
+        } else if (index_string.equals("L")|index_string.equals("l")) return;
+        ; // leave the process of choosing equipment
 
+        hero.equip(Integer.parseInt(index_string));
+        //hero_party.updateCharacterBYSearch(hero); // update hero party
+
+    }
 
     @Override
     public boolean move_up(Hero hero) { //return false if we cant move up
@@ -172,6 +192,8 @@ public class RandMap implements Map{ // this is a map that cells is randomly sca
         monster.setPositionY(positionY + 1);
         return true;
     }
+
+
 
     @Override
     public List<Hero> heroesInRange(Monster monster) {
