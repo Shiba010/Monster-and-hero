@@ -70,8 +70,7 @@ abstract public class Hero implements Character{  // this class is Hero object
         this.money = money;
         this.exp = exp;
         this.level = 1;
-        this.HP = (int) Math.round(level*level_HP_ratio); // reset HP
-        this.heroMark = heroMark;
+        this.HP = Math.round(level*level_HP_ratio); // reset HP
     }
 
     public boolean CheckBuy(Item item){ // check the item can be bought or not
@@ -202,14 +201,12 @@ abstract public class Hero implements Character{  // this class is Hero object
     }
     @Override
     public boolean checkAlive() { // check the character is alive
-        if(HP <= 0){
-            return false;
-        }
-        return true;
+        return HP > 0;
     }
     @Override
     public void dead() { // dead
         PrintPrompt.deadPrint(this);
+        HP = 0;
     }
     public void equip(int index){ // equip item in the equipment inventory
         Item e = equipment_inventory.remove(index);
@@ -342,5 +339,11 @@ abstract public class Hero implements Character{  // this class is Hero object
         return positionY;
     }
 
+    public void revive() {
+        HP = level * level_HP_ratio;
+        mana = (int) Math.round(level * level_mana_ratio);
+        money -= 100;
+        money = Math.max(money, 0);
+    }
 }
 
