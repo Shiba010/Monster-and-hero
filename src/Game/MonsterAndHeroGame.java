@@ -126,6 +126,8 @@ public class MonsterAndHeroGame implements RoundBasedGame{
             if(game_map.move(dir, hero)) { // move position on map, true if we successfully move
                 game_map.getCell(hero).GoIn(hero);
                 // evoke the event, and after the event is over, it would update the party status
+                if (game_map.getCell(hero).isMonsterNexus())
+                    handleWin(hero);
             }
         }
     }
@@ -134,8 +136,11 @@ public class MonsterAndHeroGame implements RoundBasedGame{
         for (int i = 0; i < monsterParty.size(); i++) {
             Monster monster = (Monster) monsterParty.getCharacter(i);
             // TODO check if monster can move
-            if (game_map.move_down(monster))
+            if (game_map.move_down(monster)) {
                 game_map.getCell(monster).GoIn(monster);
+                if (game_map.getCell(monster).isHeroNexus())
+                    handleLoss(monster);
+            }
         }
     }
 
@@ -157,6 +162,18 @@ public class MonsterAndHeroGame implements RoundBasedGame{
         return input.equals("Q") || input.equals("q");
     }
 
+    private void handleLoss(Monster monster) {
+        System.out.println(monster.getName() + " has reached the Heroes' Nexus.");
+        System.out.println("Monsters win!");
+        System.out.println("GAME OVER");
+        System.exit(0);
+    }
 
+    private void handleWin(Hero hero) {
+        System.out.println(hero.getName() + " has reached the Monsters' Nexus.");
+        System.out.println("YOU WIN!");
+        endGame();
+        System.exit(0);
+    }
 }
 
