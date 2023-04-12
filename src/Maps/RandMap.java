@@ -173,14 +173,16 @@ public class RandMap implements Map{ // this is a map that cells is randomly sca
     public boolean move_down(Monster monster) {
         int positionX = monster.getPositionX();
         int positionY = monster.getPositionY();
-        if (world[positionY][positionX].haveHero())
-            return false;
         if (world[positionY+1][positionX].haveMonster())
             return false;
         // if there are heroes within the monster's range, stop moving and attack one of them
         List<Hero> heroes = heroesInRange(monster);
-        if (!heroes.isEmpty())
+        if (!heroes.isEmpty()) {
+            Hero toBeAttacked = heroes.get(RandomGenerator.RandomIndex(heroes.size()));
+            monster.attack(toBeAttacked);
+            // TODO check if hero has fainted
             return false;
+        }
         world[positionY][positionX].monsterLeaving();
         monster.setPositionY(positionY + 1);
         return true;
