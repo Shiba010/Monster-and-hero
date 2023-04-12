@@ -61,47 +61,46 @@ public class AskPrompt { // this class is used to communicate with player and te
         return num;
     }
 
-    public static String ask_which_direction(Party hero_party) { // ask which direction should the party go
+    public static String ask_which_direction(Hero hero) { // ask which direction should the party go
         while (true) {
-            System.out.println("*P means where the part is, M means Market, D means dead end");
-            System.out.println("which direction should the party go ?");
-            System.out.println("[W/w] up");
-            System.out.println("[A/a] left");
-            System.out.println("[S/s] down");
-            System.out.println("[D/d] right");
-            System.out.println("[I/i] info");
-            System.out.println("[Q/q] quit");
-            System.out.print("Please enter:");
+            System.out.println("What will " + hero.getName() + " (" + hero.getHeroMark() + ") do?");
+            System.out.print("COMMANDS: ");
+            System.out.print("[W/w] up\t");
+            System.out.print("[A/a] left\t");
+            System.out.print("[S/s] down\t");
+            System.out.print("[D/d] right\t");
+            System.out.print("[I/i] info\t");
+            System.out.print("[Q/q] quit\n");
             String dir = s.ScanString();
             if (dir.equals("W") || dir.equals("A") || dir.equals("S") || dir.equals("D") || dir.equals("Q")
-            ||dir.equals("w") || dir.equals("a") || dir.equals("s") || dir.equals("d") || dir.equals("q")) {
+            ||dir.equals("w") || dir.equals("a") || dir.equals("s") || dir.equals("d") || dir.equals("q"))
+            {
                 return dir;
-            } else if (dir.equals("I") || dir.equals("i")) System.out.print(hero_party); // if the input is I print information
+            } else if (dir.equals("I") || dir.equals("i"))
+                System.out.print(hero); // if the input is I print information
             else System.out.println("Please enter a valid direction !");
         }
     }
 
-    public static String ask_which_direction_Nexus(Party hero_party) { // ask which direction should the party go
+    public static String ask_which_direction_Nexus(Hero hero) { // ask which direction should the party go
         while (true) {
-            System.out.println("*P means where the part is, M means Market, D means dead end");
-            System.out.println("which direction should the party go ?");
-            System.out.println("[W/w] up");
-            System.out.println("[A/a] left");
-            System.out.println("[S/s] down");
-            System.out.println("[D/d] right");
-            System.out.println("[M/m] Market");
-            System.out.println("[I/i] info");
-            System.out.println("[Q/q] quit");
-            System.out.print("Please enter:");
+            System.out.println("What will " + hero.getName() + " (" + hero.getHeroMark() + ") do?");
+            System.out.print("COMMANDS: ");
+            System.out.print("[W/w] up\t");
+            System.out.print("[A/a] left\t");
+            System.out.print("[S/s] down\t");
+            System.out.print("[D/d] right\t");
+            System.out.print("[M/m] Market\t");
+            System.out.print("[I/i] info\t");
+            System.out.print("[Q/q] quit\n");
             String dir = s.ScanString();
             if (dir.equals("W") || dir.equals("A") || dir.equals("S") || dir.equals("D") || dir.equals("Q")
                     ||dir.equals("w") || dir.equals("a") || dir.equals("s") || dir.equals("d") || dir.equals("q")
                     || dir.equals("M") || dir.equals("m") )
             {
                 return dir;
-            }
-
-            else if (dir.equals("I") || dir.equals("i")) { System.out.print(hero_party);} // if the input is I print information
+            } else if (dir.equals("I") || dir.equals("i"))
+                System.out.print(hero); // if the input is I print information
             else {
                 System.out.println("Please enter a valid direction !");
             }

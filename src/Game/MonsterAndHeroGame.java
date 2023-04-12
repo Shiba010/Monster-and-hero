@@ -21,11 +21,13 @@ public class MonsterAndHeroGame implements RoundBasedGame{
     private Player player = new Player();
     private final int max_people;
     private Party monsterParty;
+    private int roundCount;
 
     public MonsterAndHeroGame() throws FileNotFoundException {
         max_people = 3;
         new CharacterFactory();
         new ItemFactory();
+        roundCount = 0;
     }
 
     @Override
@@ -35,7 +37,8 @@ public class MonsterAndHeroGame implements RoundBasedGame{
         game_map.initial_map();
         //int NumInParty = AskPrompt.ask_how_many_heroes(max_people); // ask how many people is in the party
         createParty(max_people);
-        createMonsterParty();
+        monsterParty = new Party();
+
     }
     public void createParty(int NumInParty){ // create party by the number of members
         CharacterFactory.PrintHeroList();
@@ -61,17 +64,13 @@ public class MonsterAndHeroGame implements RoundBasedGame{
 
     }
 
-    private void createMonsterParty() {
-        monsterParty = new Party();
-        spawnNewMonsters();
-    }
-
     public void spawnNewMonsters() {
         Party temp = CharacterFactory.getMonsterParty(player.getParty().getMaxLevel(), max_people);
         for (int i = 0; i < temp.size(); i++) {
-            //
             Monster monster = (Monster) temp.getCharacter(i);
             monster.setInitialPosition(i);
+            if (game_map.getCell(monster).haveMonster())
+                continue;
             game_map.getCell(monster).GoIn(monster);
             monsterParty.addMember(monster);
         }
@@ -94,33 +93,50 @@ public class MonsterAndHeroGame implements RoundBasedGame{
 //    }
     @Override
     public void startARound() {
-        while(!player.checkQuit()){
-            PrintPrompt.each_round_begin(player.getParty(), game_map);
+        int spawnFrequency = 8;
+        while (true) {
+            if (roundCount % spawnFrequency == 0)
+                spawnNewMonsters();
+            heroesTurn();
+            monstersTurn();
+            endARound();
+        }
+    }
 
-            int heroIdx = AskPrompt.ask_which_hero_next();
-            Hero hero = player.getCharacter(heroIdx);
+    private void heroesTurn() {
+        PrintPrompt.each_round_begin(player.getParty(), game_map);
 
+        for (int i = 0; i < player.getParty().size(); i++) {
+            Hero hero = player.getCharacter(i);
             Cell cell = game_map.getCell(hero); // current cell that we are going to enter
             String dir;
             if(cell.isHeroNexus()){
-                dir = AskPrompt.ask_which_direction_Nexus(player.getParty());
+                dir = AskPrompt.ask_which_direction_Nexus(hero);
+            } else {
+                dir = AskPrompt.ask_which_direction(hero);
             }
-            else{
-                dir = AskPrompt.ask_which_direction(player.getParty());
-            }
-            if(checkQuit(dir)) break; // if the input is Q, quit the game
+            if(checkQuit(dir)) // if the input is Q, quit the game
+                PrintPrompt.handleQuit();
             if(game_map.move(dir, hero)) { // move position on map, true if we successfully move
                 game_map.getCell(hero).GoIn(hero);
                 // evoke the event, and after the event is over, it would update the party status
             }
-            endARound();
         }
-        endGame();
+    }
+
+    private void monstersTurn() {
+        for (int i = 0; i < monsterParty.size(); i++) {
+            Monster monster = (Monster) monsterParty.getCharacter(i);
+            // TODO check if monster can move
+            if (game_map.move_down(monster))
+                game_map.getCell(monster).GoIn(monster);
+        }
     }
 
     @Override
     public void endARound() {
-        System.out.println("This round ends");
+        System.out.println("End of turn\n");
+        roundCount++;
     }
 
     @Override

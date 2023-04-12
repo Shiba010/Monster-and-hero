@@ -6,6 +6,7 @@ import java.util.List;
 
 import Characters.Heros.Hero;
 import Characters.Character;
+import Characters.Monsters.Monster;
 import Space.Cell;
 import Prompt.*;
 import Space.InvalidSpace;
@@ -156,6 +157,19 @@ public class RandMap implements Map{ // this is a map that cells is randomly sca
         world[positionY][positionX].heroLeaving(); // go out current cell
         positionX = positionX + 1;
         hero.setPositionX(positionX);
+        return true;
+    }
+
+    @Override
+    public boolean move_down(Monster monster) {
+        int positionX = monster.getPositionX();
+        int positionY = monster.getPositionY();
+        if (world[positionY][positionX].haveHero())
+            return false;
+        if (world[positionY+1][positionX].haveMonster())
+            return false;
+        world[positionY][positionX].monsterLeaving();
+        monster.setPositionY(positionY + 1);
         return true;
     }
 

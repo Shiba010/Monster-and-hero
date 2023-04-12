@@ -43,7 +43,7 @@ public class PrintPrompt {
         System.out.println(c.getName() + " equips " + e.getname());
     }
     public static void cannot_move(){
-        System.out.println("You can not move here, please select another direction");
+        System.out.println("You cannot move here, please select another direction.");
     }
     public static void gain_exp_money_print(Character c, int money, int exp){
         System.out.println(String.format("%s gains %s gold and %s exp ",c.getName(),money,exp));
@@ -60,7 +60,7 @@ public class PrintPrompt {
     public static void each_round_begin(Party party, Map map){
         System.out.print(map);
         System.out.print("This is your party: \n" + party.toString());
-        System.out.println("H is your hero location on the map: ");
+//        System.out.println("H is your hero location on the map: ");
     }
 
     public static void Print_heroes(List<Hero> Hero_list){ // print heroes list, for player to select heroes
@@ -170,5 +170,11 @@ public class PrintPrompt {
     }
     public static void Print_buy(Hero hero, Item item){
         System.out.println(String.format("%s successfully spent %s dollar on %s", hero.getName(), item.getprice(),item.getname()));
+    }
+
+    public static void handleQuit() {
+        System.out.println("Now quitting.");
+        System.out.println("Thanks for playing!");
+        System.exit(0);
     }
 }
