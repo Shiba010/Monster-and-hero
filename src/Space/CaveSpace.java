@@ -12,6 +12,15 @@ public class CaveSpace extends Cell {
     }
 
     @Override
+    public void getBuff(Hero hero){
+        hero.gainAgi(20);
+    }
+
+    public void loseBuff(Hero hero){
+        hero.gainAgi(-20);
+    }
+
+    @Override
     public String rep() {
         return "C";
     }

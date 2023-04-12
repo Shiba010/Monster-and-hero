@@ -25,10 +25,7 @@ public abstract class Cell {
 
     public void GoIn(Hero hero) {
         setHero(hero);
-//        Battle battle = new Battle();
-//        if (battle.event_occur(occur_probability)) {
-//            return battle.start_event(player);
-//        }
+        getBuff(hero);
     }
 
     public void GoIn(Monster monster) {
@@ -37,12 +34,20 @@ public abstract class Cell {
     }
 
     public void heroLeaving() {
-        hero = null;
+        loseBuff(hero);
+        this.hero = null;
     }
 
     public void monsterLeaving() {
         monster = null;
         MonsterMark = "  ";
+    }
+
+    public void getBuff(Hero hero){
+
+    }
+    public void loseBuff(Hero hero){
+
     }
 
     public boolean haveHero() {
