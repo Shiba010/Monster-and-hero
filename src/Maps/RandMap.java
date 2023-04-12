@@ -119,6 +119,8 @@ public class RandMap implements Map{ // this is a map that cells is randomly sca
         {
             return recall(hero);
         }
+
+
         return false;
     }
 
@@ -269,7 +271,7 @@ public class RandMap implements Map{ // this is a map that cells is randomly sca
 
 
     private boolean checkValidMove(Hero hero, int destinationY, int destinationX) {
-        if (destinationY < 0 || destinationX >= world_size_y)
+        if (destinationY < 0 || destinationY >= world_size_y)
             return false; // Y coordinate out of bounds
         if (destinationX < 0 || destinationX >= world_size_x)
             return false; // X coordinate out of bounds
@@ -400,6 +402,21 @@ public class RandMap implements Map{ // this is a map that cells is randomly sca
             }
         }
         return null;
+    }
+    @Override
+    public boolean checkMonsterInRange(Hero hero){
+        int positionX = hero.getPositionX();
+        int positionY = hero.getPositionY();
+        for (int i = positionX - 1; i <= positionX + 1; i++) {
+            try {
+                if (world[positionY][i].haveMonster())
+                    return true;
+                if (world[positionY-1][i].haveMonster())
+                    return true;
+            } catch (IndexOutOfBoundsException ignored) {
+            }
+        }
+        return false;
     }
 
     @Override

@@ -70,6 +70,10 @@ public class PrintPrompt {
         System.out.println("Invalid Recall.");
     }
 
+    public static void PrintSpellDamage(int damage){
+        System.out.println("The monster got "+damage+" from spell!");
+    }
+
 
     public static void Print_heroes(List<Hero> Hero_list){ // print heroes list, for player to select heroes
         String title = String.format("   %-25s %-15s %-10s %-10s %-10s %-10s %-10s %-10s %-10s\n",

@@ -20,4 +20,5 @@ public interface Map { // this is the interface of map
     boolean move_down(Monster monster);
     List<Hero> heroesInRange(Monster monster);
     Monster monsterInRange(Hero hero);
+    boolean checkMonsterInRange(Hero hero);
 }
