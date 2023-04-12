@@ -3,57 +3,53 @@ import Characters.Heros.Hero;
 import Characters.Monsters.Monster;
 
 public abstract class Cell {
-    private boolean HeroIsHere;
-    private boolean MonsterIsHere;
-    private String HeroMark;
+    private Hero hero;
+    private Monster monster;
     private String MonsterMark;
 
     public Cell() {
-        HeroMark = "  ";
+        hero = null;
+        monster = null;
         MonsterMark = "  ";
-        HeroIsHere = false;
-        MonsterIsHere = false;
     }
 
     private double occur_probability; // the probability to start an event
 
-    public void setHeroIsHere() {
-        HeroIsHere = true;
+    public void setHero(Hero hero) {
+        this.hero = hero;
         //occur_probability = 0.5;
     }
-    public void setMonsterIsHere() {
-        MonsterIsHere = true;
+    public void setMonster(Monster monster) {
+        this.monster = monster;
     }
 
     public void GoIn(Hero hero) {
-        setHeroIsHere();
+        setHero(hero);
 //        Battle battle = new Battle();
 //        if (battle.event_occur(occur_probability)) {
 //            return battle.start_event(player);
 //        }
-        HeroMark = hero.getHeroMark();
     }
 
     public void GoIn(Monster monster) {
-        setMonsterIsHere();
+        setMonster(monster);
         MonsterMark = "M ";
     }
 
     public void heroLeaving() {
-        HeroIsHere = false;
-        HeroMark = "  ";
+        hero = null;
     }
 
     public void monsterLeaving() {
-        MonsterIsHere = false;
+        monster = null;
         MonsterMark = "  ";
     }
 
     public boolean haveHero() {
-        return HeroIsHere;
+        return hero != null;
     }
     public boolean haveMonster() {
-        return MonsterIsHere;
+        return monster != null;
     }
     public boolean isHeroNexus() {
         return false;
@@ -63,10 +59,19 @@ public abstract class Cell {
     }
 
     public String toString() {
-        return HeroMark+" "+MonsterMark;
+        String heroMark = (hero != null) ? hero.getHeroMark() : "  ";
+        return heroMark+" "+MonsterMark;
     }
 
     public abstract String rep();
+
+    public Hero getHero() {
+        return hero;
+    }
+
+    public Monster getMonster() {
+        return monster;
+    }
 
     // TODO method for giving hero a bonus at this space
 

@@ -4,6 +4,8 @@ import Characters.Monsters.Monster;
 import Space.Cell;
 import Characters.Heros.Hero;
 
+import java.util.List;
+
 
 public interface Map { // this is the interface of map
     boolean move_up(Hero hero);
@@ -16,4 +18,5 @@ public interface Map { // this is the interface of map
     void initial_map();
 
     boolean move_down(Monster monster);
+    List<Hero> heroesInRange(Monster monster);
 }

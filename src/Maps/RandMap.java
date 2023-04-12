@@ -174,6 +174,26 @@ public class RandMap implements Map{ // this is a map that cells is randomly sca
     }
 
     @Override
+    public List<Hero> heroesInRange(Monster monster) {
+        // Monster's attack range:
+        // W, same spot, E
+        // SW, S, SE
+        List<Hero> inRange = new ArrayList<>();
+        int positionX = monster.getPositionX();
+        int positionY = monster.getPositionY();
+        for (int i = positionX - 1; i <= positionX + 1; i++) {
+            try {
+                if (world[positionY][i].haveHero())
+                    inRange.add(world[positionY][i].getHero());
+                if (world[positionY+1][i].haveHero())
+                    inRange.add(world[positionY+1][i].getHero());
+            } catch (IndexOutOfBoundsException ignored) {
+            }
+        }
+        return inRange;
+    }
+
+    @Override
     public Cell getCell(Character character){ // return the Cell
         int positionX = character.getPositionX();
         int positionY = character.getPositionY();

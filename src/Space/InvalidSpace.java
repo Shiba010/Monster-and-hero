@@ -1,6 +1,6 @@
 package Space;
-import Players.Player;
 import Characters.Heros.Hero;
+import Characters.Monsters.Monster;
 
 public class InvalidSpace extends Cell{
     @Override
@@ -9,11 +9,11 @@ public class InvalidSpace extends Cell{
     }
 
     @Override
-    public void setHeroIsHere() {
+    public void setHero(Hero hero) {
 
     }
     @Override
-    public void setMonsterIsHere() {
+    public void setMonster(Monster monster) {
 
     }
 
