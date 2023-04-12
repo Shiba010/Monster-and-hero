@@ -352,6 +352,11 @@ public class RandMap implements Map{ // this is a map that cells is randomly sca
             Hero toBeAttacked = heroes.get(RandomGenerator.RandomIndex(heroes.size()));
             monster.attack(toBeAttacked);
             // TODO check if hero has fainted
+            // if hero fainted, make them respawn in original nexus, restore all HP and Mana, take away $100
+            if (!toBeAttacked.checkAlive()) {
+                // Respawn in original nexus
+                toBeAttacked.revive();
+            }
             return false;
         }
         world[positionY][positionX].monsterLeaving();
