@@ -177,6 +177,10 @@ public class RandMap implements Map{ // this is a map that cells is randomly sca
             return false;
         if (world[positionY+1][positionX].haveMonster())
             return false;
+        // if there are heroes within the monster's range, stop moving and attack one of them
+        List<Hero> heroes = heroesInRange(monster);
+        if (!heroes.isEmpty())
+            return false;
         world[positionY][positionX].monsterLeaving();
         monster.setPositionY(positionY + 1);
         return true;
