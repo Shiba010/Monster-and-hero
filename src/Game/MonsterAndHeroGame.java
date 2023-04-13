@@ -110,48 +110,20 @@ public class MonsterAndHeroGame implements RoundBasedGame{
 
         for (int i = 0; i < player.getParty().size(); i++) {
             Hero hero = player.getCharacter(i);
-            Cell cell = game_map.getCell(hero); // current cell that we are going to enter
-            String dir;
-            dir = AskPrompt.ask_which_direction(hero, game_map);
-            if(checkQuit(dir)) // if the input is Q, quit the game
-                PrintPrompt.handleQuit();
-
-            while(dir.equals("M") || dir.equals("m")){ // do action in market doesn't make a turn
-                game_map.move(dir, hero);
-                dir = AskPrompt.ask_which_direction(hero, game_map);
-            }
-
-            if(dir.equals("Sp")) { // do action in market doesn't make a turn
-                Monster monster = game_map.monsterInRange(hero);
-                useSpell(hero, monster);
-            }
-            else if(game_map.move(dir, hero)) { // move position on map, true if we successfully move
-                game_map.getCell(hero).GoIn(hero);
-                // evoke the event, and after the event is over, it would update the party status
-                if (game_map.getCell(hero).isMonsterNexus())
+            boolean done = false;
+            while (!done) {
+                String dir = AskPrompt.ask_which_direction(hero, game_map);
+                if (dir.equals("q"))
+                    PrintPrompt.handleQuit();
+                else if(dir.equals("sp")) { // use spell
+                    Monster monster = game_map.monsterInRange(hero);
+                    useSpell(hero, monster);
+                    done = true;
+                } else {
+                    done = game_map.move(dir, hero);
                     handleWin(hero);
+                }
             }
-        }
-    }
-
-    private void heroCommand(Hero hero) {
-        boolean done = false;
-        while (!done) {
-            String dir = AskPrompt.ask_which_direction(hero, game_map);
-            if (dir.equals("q"))
-                PrintPrompt.handleQuit();
-            done = game_map.move(dir, hero);
-            /*
-            exit loop if:
-            - move successful
-            - teleport successful
-            - recall successful
-            - weapon/armour equipped
-            - potion consumed
-            - attacked
-            - spell used
-            - quit
-             */
         }
     }
 
@@ -161,8 +133,7 @@ public class MonsterAndHeroGame implements RoundBasedGame{
             // TODO check if monster can move
             if (game_map.move_down(monster)) {
                 game_map.getCell(monster).GoIn(monster);
-                if (game_map.getCell(monster).isHeroNexus())
-                    handleLoss(monster);
+                handleLoss(monster);
             }
         }
     }
@@ -215,6 +186,8 @@ public class MonsterAndHeroGame implements RoundBasedGame{
 
 
     private void handleLoss(Monster monster) {
+        if (!game_map.getCell(monster).isHeroNexus())
+            return;
         System.out.println(monster.getName() + " has reached the Heroes' Nexus.");
         System.out.println("Monsters win!");
         System.out.println("GAME OVER");
@@ -222,6 +195,8 @@ public class MonsterAndHeroGame implements RoundBasedGame{
     }
 
     private void handleWin(Hero hero) {
+        if (!game_map.getCell(hero).isMonsterNexus())
+            return;
         System.out.println(hero.getName() + " has reached the Monsters' Nexus.");
         System.out.println("YOU WIN!");
         endGame();
