@@ -114,12 +114,6 @@ public class RandMap implements Map{ // this is a map that cells is randomly sca
                 return teleport(hero);
             case "r":
                 return recall(hero);
-                // case for attack
-                // case for use spell
-        }
-        if (direction.equalsIgnoreCase("at")) {
-            // Attack monster
-            return false;
         }
 
         return false;
@@ -183,10 +177,6 @@ public class RandMap implements Map{ // this is a map that cells is randomly sca
         potion.consume(hero); // use Potion
         //hero_party.updateCharacterBYSearch(hero); // update hero party
         return;
-    }
-
-    public void attack() {
-
     }
 
 //    public void useSpell(Hero hero){

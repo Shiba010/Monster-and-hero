@@ -115,7 +115,10 @@ public class MonsterAndHeroGame implements RoundBasedGame{
                 String dir = AskPrompt.ask_which_direction(hero, game_map);
                 if (dir.equals("q"))
                     PrintPrompt.handleQuit();
-                else if(dir.equals("sp")) { // use spell
+                else if (dir.equals("at")) { // attack
+                    attack(hero);
+                    done = true;
+                } else if(dir.equals("sp")) { // use spell
                     Monster monster = game_map.monsterInRange(hero);
                     useSpell(hero, monster);
                     done = true;
@@ -124,6 +127,17 @@ public class MonsterAndHeroGame implements RoundBasedGame{
                     handleWin(hero);
                 }
             }
+        }
+    }
+
+    public void attack(Hero hero) {
+        Monster monster = game_map.monsterInRange(hero);
+        if (monster == null) return;
+        hero.attack(monster);
+        if (!monster.checkAlive()) {
+            game_map.getCell(monster).monsterLeaving();
+            player.getParty().gainMoneyExp(monster.getDeadGold(), monster.getDeadExp(1));
+            monsterParty.remove(monster);
         }
     }
 
