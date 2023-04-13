@@ -3,7 +3,9 @@ import java.io.FileNotFoundException;
 import java.util.List;
 
 import Characters.Monsters.Monster;
+import Items.Item;
 import Items.ItemFactory;
+import Items.Spells.Spell;
 import Players.Player;
 import Maps.Map;
 import Maps.RandMap;
@@ -119,7 +121,11 @@ public class MonsterAndHeroGame implements RoundBasedGame{
                 dir = AskPrompt.ask_which_direction(hero, game_map);
             }
 
-            if(game_map.move(dir, hero)) { // move position on map, true if we successfully move
+            if(dir.equals("Sp")) { // do action in market doesn't make a turn
+                Monster monster = game_map.monsterInRange(hero);
+                useSpell(hero, monster);
+            }
+            else if(game_map.move(dir, hero)) { // move position on map, true if we successfully move
                 game_map.getCell(hero).GoIn(hero);
                 // evoke the event, and after the event is over, it would update the party status
                 if (game_map.getCell(hero).isMonsterNexus())
@@ -171,13 +177,42 @@ public class MonsterAndHeroGame implements RoundBasedGame{
     public void endGame() {
         AskPrompt.close();
         System.out.println("See you next time");
-
     }
 
-    public boolean checkQuit(String input){ // 'Q' for quit.
-        // return true , if the input is  Q
-        return input.equals("Q") || input.equals("q");
+    public void useSpell(Hero hero, Monster monster) {
+        Player player = new Player();
+        String index_string = AskPrompt.ask_which_spell(hero, hero.getSpell_inventory());
+        //Ask the player which spell/potion wants to use.
+        if (index_string.equals("Q") | index_string.equals("q")) {//quit
+            player.Quit();
+
+            int index = Integer.parseInt(index_string);
+            Item item = hero.getSpell_inventory().get(index);
+            Spell spell = (Spell) item;
+            //**********************************
+
+            if (hero.getSpellMana(index) > hero.getMana()) {
+                PrintPrompt.Print_spell_cannot_use();
+            }
+            System.out.println("spell!");
+            System.out.println("spell!");
+            System.out.println("spell!");
+            hero.useSpell(monster, spell); //use spell
+            //hero_party.updateCharacterBYSearch(hero); // update hero party
+
+            if (!monster.checkAlive()) {
+                hero.gainGold(monster.getDeadGold());
+                hero.gainExp(monster.getDeadExp(1));
+                monsterParty.remove(monster);
+            }
+        }
     }
+
+    public boolean checkQuit (String input){ // 'Q' for quit.
+            // return true , if the input is  Q
+            return input.equals("Q") || input.equals("q");
+    }
+
 
     private void handleLoss(Monster monster) {
         System.out.println(monster.getName() + " has reached the Heroes' Nexus.");

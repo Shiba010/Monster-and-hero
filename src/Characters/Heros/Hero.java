@@ -226,15 +226,19 @@ abstract public class Hero implements Character{  // this class is Hero object
         }
         PrintPrompt.equip_print(this, e);
     }
-    public void useSpell(Monster monster, int index){ // use spell
+    public void useSpell(Monster monster, Spell spell){ // use spell
         //if(consumables_inventory.get(index) instanceof Spell){ // if the index we choose is a spell
-        Spell spell = (Spell) spell_inventory.remove(index);
         consumables_inventory.remove(spell);
+        spell_inventory.remove(spell);
+
         mana -= spell.getMana_cost(); // mana lost
         monster.getSpellAffect(spell, this);
         int spell_damage = (int) Math.round(attack_factor*(spell.getDamage() + spell.getDamage()*(dex/dex_damage_factor))); // calculate spell damage
         monster.takeDamage(spell_damage, this ); //get damage
-
+        System.out.println("spell!");
+        System.out.println("spell!");
+        System.out.println("spell!");
+        PrintPrompt.PrintSpellDamage(spell_damage);
     }
     public int getSpellMana(int index){
         Spell spell = (Spell) spell_inventory.get(index);
@@ -263,7 +267,7 @@ abstract public class Hero implements Character{  // this class is Hero object
 
 
     public void gainMana(int extra_mana){
-        System.out.println(this.name+" HP increase "+extra_mana);
+        System.out.println(this.name+" Mana increase "+extra_mana);
         mana += extra_mana;
     }
     public void gainHP(int hp){
@@ -274,15 +278,15 @@ abstract public class Hero implements Character{  // this class is Hero object
         }
     }
     public void gainStrength(int extra_str){
-        System.out.println(this.name+" HP increase "+extra_str);
+        System.out.println(this.name+" Str increase "+extra_str);
         str += extra_str;
     }
     public void gainDex(int extra_dex){
-        System.out.println(this.name+" HP increase "+extra_dex);
+        System.out.println(this.name+" Dex increase "+extra_dex);
         dex += extra_dex;
     }
     public void gainAgi(int extra_agi){
-        System.out.println(this.name+" HP increase "+extra_agi);
+        System.out.println(this.name+" Agi increase "+extra_agi);
         agi += extra_agi;
     }
 
