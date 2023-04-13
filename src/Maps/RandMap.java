@@ -1,28 +1,22 @@
 package Maps;
 
-import java.io.FileNotFoundException;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Objects;
-
-import Characters.Heros.Hero;
 import Characters.Character;
+import Characters.Heros.Hero;
 import Characters.Monsters.Monster;
+import Events.Market;
 import Items.Item;
 import Items.Potions;
-import Items.Spells.Spell;
 import Players.Player;
-import Space.Cell;
-import Prompt.*;
-import Space.InvalidSpace;
-import Space.BushSpace;
-import Space.CaveSpace;
-import Space.PlainSpace;
-import Space.KoulouSpace;
-import Space.HeroNexusSpace;
-import Space.MonsterNexusSpace;
-import Events.Market;
+import Prompt.AskPrompt;
+import Prompt.PrintPrompt;
+import Space.*;
 import Utility.Scanner;
+
+import java.io.FileNotFoundException;
+import java.util.ArrayList;
+import java.util.HashSet;
+import java.util.List;
+import java.util.Set;
 
 
 
@@ -129,10 +123,22 @@ public class RandMap implements Map{ // this is a map that cells is randomly sca
             AskPrompt.ask_teleport();
             destinationX = s.ScanInt();
             destinationY = s.ScanInt();
-            valid = checkValidMove(hero, destinationY, destinationX);
+            valid = checkValidMove(hero, destinationY, destinationX) &
+                    checkTeleport(hero, destinationY, destinationX);
         }
         completeMove(hero, destinationY, destinationX);
         return true;
+    }
+
+    private boolean checkTeleport(Hero hero, int destY, int destX) {
+        // destination Y cannot be 0 (or the game is broken)
+        // hero must teleport to different lane
+        if (destY == 0) return false;
+        int index = java.lang.Character.getNumericValue(hero.getHeroMark().charAt(1)) - 1;
+        Set<Integer> sameLaneIndices = new HashSet<>();
+        sameLaneIndices.add(3 * index);
+        sameLaneIndices.add((3 * index) + 1);
+        return !sameLaneIndices.contains(destX);
     }
 
     public boolean recall(Hero hero){
