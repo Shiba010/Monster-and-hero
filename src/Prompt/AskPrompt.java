@@ -1,7 +1,12 @@
 package Prompt;
+import Characters.Monsters.Monster;
 import Maps.Map;
 import Utility.Scanner;
+
+import java.util.Arrays;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 import Items.Item;
 import Party.Party;
@@ -62,19 +67,28 @@ public class AskPrompt { // this class is used to communicate with player and te
         return num;
     }
 
+    // Return value for this method is always lower-case.
+
     public static String ask_which_direction(Hero hero, Map map) { // ask which direction should the party go
+        Set<String> valids = new HashSet<>();
+        // up, down, left, right
+        valids.addAll(Arrays.asList("w", "a", "s", "d"));
+        // teleport, recall, use potion, equip/unequip armor/weapon, quit
+        valids.addAll(Arrays.asList("t", "r", "p", "e", "q"));
+        // enter market if hero is on hero's nexus
+        if (map.getCell(hero).isHeroNexus())
+            valids.add("m");
+        // if monster in range...
+        Monster monster = map.monsterInRange(hero);
+        if (monster != null)
+            // attack, use spell
+            valids.addAll(Arrays.asList("at", "sp"));
         while (true) {
             PrintPrompt.printCommands(hero, map);
-            String dir = s.ScanString();
-            if (dir.equals("W") || dir.equals("A") || dir.equals("S") || dir.equals("D") || dir.equals("Q")
-                    || dir.equals("w") || dir.equals("a") || dir.equals("s") || dir.equals("d") || dir.equals("q")
-                    || dir.equals("E") || dir.equals("e") || dir.equals("P") || dir.equals("p") || dir.equals("At")
-                    || dir.equals("T") || dir.equals("t") || dir.equals("R") || dir.equals("r") || dir.equals("M")
-                    || dir.equals("m") || dir.equals("Sp"))
-            {
+            String dir = s.ScanString().toLowerCase();
+            if (valids.contains(dir)) {
                 return dir;
-
-            } else if (dir.equals("I") || dir.equals("i"))
+            } else if (dir.equals("i"))
                 System.out.print(hero); // if the input is I print information
             else System.out.println("Please enter a valid direction !");
         }

@@ -128,6 +128,27 @@ public class MonsterAndHeroGame implements RoundBasedGame{
         }
     }
 
+    private void heroCommand(Hero hero) {
+        boolean done = false;
+        while (!done) {
+            String dir = AskPrompt.ask_which_direction(hero, game_map);
+            if (dir.equals("q"))
+                PrintPrompt.handleQuit();
+            done = game_map.move(dir, hero);
+            /*
+            exit loop if:
+            - move successful
+            - teleport successful
+            - recall successful
+            - weapon/armour equipped
+            - potion consumed
+            - attacked
+            - spell used
+            - quit
+             */
+        }
+    }
+
     private void monstersTurn() {
         for (int i = 0; i < monsterParty.size(); i++) {
             Monster monster = (Monster) monsterParty.getCharacter(i);

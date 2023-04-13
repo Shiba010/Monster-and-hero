@@ -193,7 +193,7 @@ public class PrintPrompt {
         System.out.print("[W/w] up; ");
         System.out.print("[A/a] left; ");
         System.out.print("[S/s] down; ");
-        System.out.println("[D/d] right; ");
+        System.out.println("[D/d] right");
 
         System.out.print("[T/t] teleport; ");
         System.out.print("[R/r] recall; ");

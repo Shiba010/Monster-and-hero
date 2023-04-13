@@ -92,33 +92,32 @@ public class RandMap implements Map{ // this is a map that cells is randomly sca
 
     @Override
     public boolean move(String direction, Hero hero) { // return true if we actually move
-        if(direction.equals("W")|direction.equals("w")) return move_up(hero);
-        else if (direction.equals("A")|direction.equals("a")) return move_left(hero);
-        else if (direction.equals("S")|direction.equals("s")) return move_down(hero);
-        else if (direction.equals("D")|direction.equals("d")) return move_right(hero);
-        else if (direction.equals("M")|direction.equals("m"))
-        {
-            market.start_event(hero);
-            return false;
+        switch (direction) {
+            case "w":
+                return move_up(hero);
+            case "a":
+                return move_left(hero);
+            case "s":
+                return move_down(hero);
+            case "d":
+                return move_right(hero);
+            case "m": // market does not end turn
+                market.start_event(hero);
+                return false;
+            case "e":
+                equip(hero);
+                return true;
+            case "p":
+                usePotion(hero);
+                return true;
+            case "t":
+                return teleport(hero);
+            case "r":
+                return recall(hero);
+                // case for attack
+                // case for use spell
         }
-        else if (direction.equals("E")|direction.equals("e"))
-        {
-            equip(hero);
-            return false;
-        }
-        else if (direction.equals("P")|direction.equals("p"))
-        {
-            usePotion(hero);
-            return false;
-        }
-        else if (direction.equals("T")|direction.equals("t"))
-        {
-            return teleport(hero);
-        }
-        else if (direction.equals("R")|direction.equals("r"))
-        {
-            return recall(hero);
-        } else if (direction.equalsIgnoreCase("at")) {
+        if (direction.equalsIgnoreCase("at")) {
             // Attack monster
             return false;
         }
@@ -149,53 +148,15 @@ public class RandMap implements Map{ // this is a map that cells is randomly sca
     }
 
     public boolean recall(Hero hero){
-        int currentPositionX;
-        int currentPositionY;
-        currentPositionX= hero.getPositionX();
-        currentPositionY= hero.getPositionY();
-
-        int destinationX;
-        int destinationY;
-        if(Objects.equals(hero.getHeroMark(), "H1")){
-            destinationX = 1;
-            destinationY = 7;
-            if (world[destinationY][destinationX].haveHero()) {
-                PrintPrompt.invalidRecall();
-                return false;
-            }
-
-            world[currentPositionY][currentPositionX].heroLeaving();
-            hero.setPositionY(destinationY);
-            hero.setPositionX(destinationX);
-            return true;
+        int index = java.lang.Character.getNumericValue(hero.getHeroMark().charAt(1)) - 1;
+        int destinationX = (index * 3) + 1;
+        int destinationY = 7;
+        if (!checkValidMove(hero, destinationY, destinationX)) {
+            PrintPrompt.invalidRecall();
+            return false;
         }
-
-        else if(Objects.equals(hero.getHeroMark(), "H2")){
-            destinationX = 4;
-            destinationY = 7;
-            if (world[destinationY][destinationX].haveHero()) {
-                PrintPrompt.invalidRecall();
-                return false;
-            }
-            world[currentPositionY][currentPositionX].heroLeaving();
-            hero.setPositionY(destinationY);
-            hero.setPositionX(destinationX);
-            return true;
-        }
-
-        else if(Objects.equals(hero.getHeroMark(), "H3")){
-            destinationX = 7;
-            destinationY = 7;
-            if (world[destinationY][destinationX].haveHero()){
-                PrintPrompt.invalidRecall();
-                return false;
-            }
-            world[currentPositionY][currentPositionX].heroLeaving();
-            hero.setPositionY(destinationY);
-            hero.setPositionX(destinationX);
-            return true;
-        }
-       return false;
+        completeMove(hero, destinationY, destinationX);
+        return true;
     }
 
 
@@ -299,9 +260,7 @@ public class RandMap implements Map{ // this is a map that cells is randomly sca
             PrintPrompt.cannot_move();
             return false;
         }
-        world[positionY][positionX].heroLeaving(); // go out current cell
-        positionY = positionY-1;
-        hero.setPositionY(positionY);
+        completeMove(hero, positionY - 1, positionX);
         return true;
     }
 
@@ -313,9 +272,7 @@ public class RandMap implements Map{ // this is a map that cells is randomly sca
             PrintPrompt.cannot_move();
             return false;
         }
-        world[positionY][positionX].heroLeaving(); // go out current cell
-        positionY = positionY + 1;
-        hero.setPositionY(positionY);
+        completeMove(hero, positionY + 1, positionX);
         return true;
     }
 
@@ -327,9 +284,7 @@ public class RandMap implements Map{ // this is a map that cells is randomly sca
             PrintPrompt.cannot_move();
             return false;
         }
-        world[positionY][positionX].heroLeaving(); // go out current cell
-        positionX = positionX - 1;
-        hero.setPositionX(positionX);
+        completeMove(hero, positionY, positionX - 1);
         return true;
     }
 
@@ -341,10 +296,15 @@ public class RandMap implements Map{ // this is a map that cells is randomly sca
             PrintPrompt.cannot_move();
             return false;
         }
-        world[positionY][positionX].heroLeaving(); // go out current cell
-        positionX = positionX + 1;
-        hero.setPositionX(positionX);
+        completeMove(hero, positionY, positionX + 1);
         return true;
+    }
+
+    private void completeMove(Hero hero, int destY, int destX) {
+        getCell(hero).heroLeaving(); // leave current cell
+        hero.setPositionY(destY);
+        hero.setPositionX(destX);
+        getCell(hero).GoIn(hero); // enter new cell
     }
 
     @Override
