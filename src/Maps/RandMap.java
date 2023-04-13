@@ -292,11 +292,11 @@ public class RandMap implements Map{ // this is a map that cells is randomly sca
     }
 
     @Override
-    public boolean move_down(Monster monster) {
+    public void move_down(Monster monster) {
         int positionX = monster.getPositionX();
         int positionY = monster.getPositionY();
         if (world[positionY+1][positionX].haveMonster())
-            return false;
+            return;
         // if there are heroes within the monster's range, stop moving and attack one of them
         List<Hero> heroes = heroesInRange(monster);
         if (!heroes.isEmpty()) {
@@ -308,11 +308,11 @@ public class RandMap implements Map{ // this is a map that cells is randomly sca
                 getCell(toBeAttacked).GoIn(toBeAttacked);
                 toBeAttacked.revive();
             }
-            return false;
+            return;
         }
-        world[positionY][positionX].monsterLeaving();
+        getCell(monster).monsterLeaving();
         monster.setPositionY(positionY + 1);
-        return true;
+        getCell(monster).GoIn(monster);
     }
 
 

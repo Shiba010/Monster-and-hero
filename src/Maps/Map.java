@@ -17,7 +17,7 @@ public interface Map { // this is the interface of map
     boolean move(String direction, Hero hero);
     void initial_map();
 
-    boolean move_down(Monster monster);
+    void move_down(Monster monster);
     List<Hero> heroesInRange(Monster monster);
     Monster monsterInRange(Hero hero);
     boolean checkMonsterInRange(Hero hero);

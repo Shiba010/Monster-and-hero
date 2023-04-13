@@ -146,10 +146,8 @@ public class MonsterAndHeroGame implements RoundBasedGame{
         for (int i = 0; i < monsterParty.size(); i++) {
             Monster monster = (Monster) monsterParty.getCharacter(i);
             // TODO check if monster can move
-            if (game_map.move_down(monster)) {
-                game_map.getCell(monster).GoIn(monster);
-                handleLoss(monster);
-            }
+            game_map.move_down(monster);
+            handleLoss(monster);
         }
     }
 
