@@ -136,7 +136,8 @@ public class MonsterAndHeroGame implements RoundBasedGame{
         hero.attack(monster);
         if (!monster.checkAlive()) {
             game_map.getCell(monster).monsterLeaving();
-            player.getParty().gainMoneyExp(monster.getDeadGold(), monster.getDeadExp(1));
+            hero.gainGold(monster.getDeadGold());
+            hero.gainExp(monster.getDeadExp(1));
             monsterParty.remove(monster);
         }
     }
