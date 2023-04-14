@@ -305,7 +305,8 @@ public class RandMap implements Map{ // this is a map that cells is randomly sca
             return;
         // if there are heroes within the monster's range, stop moving and attack one of them
         List<Hero> heroes = heroesInRange(monster);
-        if (!heroes.isEmpty()) {
+        int minHeroY = furthestHero(heroes);
+        if (minHeroY == positionY) {
             Hero toBeAttacked = heroes.get(RandomGenerator.RandomIndex(heroes.size()));
             monster.attack(toBeAttacked);
             // if hero fainted, make them respawn in original nexus, restore all HP and Mana, take away $100
@@ -321,7 +322,13 @@ public class RandMap implements Map{ // this is a map that cells is randomly sca
         getCell(monster).GoIn(monster);
     }
 
-
+    private int furthestHero(List<Hero> heroes) {
+        int y = world_size_y;
+        for (Hero hero: heroes) {
+            y = Math.min(hero.getPositionY(), y);
+        }
+        return y;
+    }
 
     @Override
     public List<Hero> heroesInRange(Monster monster) {
