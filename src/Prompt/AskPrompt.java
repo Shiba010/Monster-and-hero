@@ -38,8 +38,9 @@ public class AskPrompt { // this class is used to communicate with player and te
 //    }
 
     public static Hero ask_which_hero(List<Hero> list) { // ask Hero we need to add in the party
-
+        System.out.println("You can choose 3 heroes in the game.");
         while (true) {
+            System.out.println("Please choose a hero!");
             System.out.print("Which hero you want to select? Enter the number: ");
             String num = s.ScanString();
             try {

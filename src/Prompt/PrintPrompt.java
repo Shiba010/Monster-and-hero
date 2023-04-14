@@ -107,7 +107,7 @@ public class PrintPrompt {
     }
     public static void welcome_game(){
         System.out.println("*************************************************");
-        System.out.println("**       Welcome to the Heroes & Monsters      **");
+        System.out.println("**       Welcome to the Legends of Valor      **");
         System.out.println("*************************************************");
     }
 
