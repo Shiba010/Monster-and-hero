@@ -112,17 +112,17 @@ public class Monster implements Character{
         int affect_val = (int) Math.round(spell.getDamage()*spell_affect_factor);
         if(spell instanceof IceSpell){
             base_damage -= affect_val;
-            System.out.println(String.format("%s use ice spell on %s", this.getName(), name));
+            System.out.println(String.format("%s use ice spell on %s", hero.getName(), name));
             System.out.println(String.format("%s's base damage value decrease %s by ice spell", name, affect_val));
         }
         if(spell instanceof FireSpell){
             defense_val -= affect_val;
-            System.out.println(String.format("%s use fire spell on %s", this.getName(), name));
+            System.out.println(String.format("%s use fire spell on %s", hero.getName(), name));
             System.out.println(String.format("%s's base defense value decrease %s by fire spell", name, affect_val));
         }
         if(spell instanceof LighteningSpell){
             dodge_ability -= affect_val;
-            System.out.println(String.format("%s use lighting spell on %s", this.getName(), name));
+            System.out.println(String.format("%s use lighting spell on %s", hero.getName(), name));
             System.out.println(String.format("%s's base damage value decrease %s by lighting spell", name, affect_val));
         }
 
