@@ -5,12 +5,12 @@ import java.util.Scanner;
 
 
 public class FileReader {  // this class is used to read files
-    private final String weapon_file = "src/Resource/Items/Weaponry.txt";
-    private final String armor_file = "src/Resource/Items/Armory.txt";
-    private final String potion_file = "src/Resource/Items/Potions.txt";
-    private final String spell_file = "src/Resource/Items/Spells.txt";
-    private final String hero_file = "src/Resource/Characters/Heroes.txt";
-    private final String monster_file = "src/Resource/Characters/Monsters.txt";
+    private final String weapon_file = "Resource/Items/Weaponry.txt";
+    private final String armor_file = "Resource/Items/Armory.txt";
+    private final String potion_file = "Resource/Items/Potions.txt";
+    private final String spell_file = "Resource/Items/Spells.txt";
+    private final String hero_file = "Resource/Characters/Heroes.txt";
+    private final String monster_file = "Resource/Characters/Monsters.txt";
     private final Scanner weapon_sc;
     private final Scanner armor_sc;
     private final Scanner potion_sc;

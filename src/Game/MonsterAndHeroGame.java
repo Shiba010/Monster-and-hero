@@ -182,6 +182,11 @@ public class MonsterAndHeroGame implements RoundBasedGame{
     @Override
     public void endARound() {
         System.out.println("End of turn\n");
+        for (int i = 0; i < player.getParty().size(); i++) {
+            Hero hero = player.getCharacter(i);
+            hero.HPregain();
+            hero.MPregain();
+        }
         roundCount++;
     }
 
