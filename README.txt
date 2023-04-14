@@ -82,6 +82,8 @@ Utility(Package):
 	FileReader.java: read the txt files
 	Scanner.java: scan the text
 
+A4 uml.png: The UML diagram for our program and design
+
 ## Notes
 ---------------------------------------------------------------------------
 1. I combine those text files for different types of heros to "Heros.txt".
