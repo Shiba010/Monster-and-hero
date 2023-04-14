@@ -19,9 +19,46 @@ import Utility.FileReader;
 
 
 public class CharacterFactory {
+
+    private static class MonsterGenerator {
+        private String name;
+        private int level;
+        private int HP;
+        private int base_damage;
+        private int defense_val;
+        private int dodge_ability;
+        private String type;
+
+        public MonsterGenerator(String name, int level, int damage, int defense, int dodge_abi, String type) {
+            this.name = name;
+            this.level = level;
+            this.base_damage = damage;
+            this.defense_val = defense;
+            this.dodge_ability = dodge_abi;
+            this.type = type;
+        }
+
+        public Monster generateMonster() {
+            switch (type) {
+                case "Dragon":
+                    return new Dragon(name, level, base_damage, defense_val, dodge_ability);
+                case "Exoskeleton":
+                    return new Exoskeleton(name, level, base_damage, defense_val, dodge_ability);
+                case "Spirit":
+                    return new Spirit(name, level, base_damage, defense_val, dodge_ability);
+                default:
+                    return null;
+            }
+        }
+
+        public int getLevel() {
+            return level;
+        }
+    }
+
     private static FileReader file;
     private static final List<Hero> Hero_list = new ArrayList<Hero>();
-    private static final List<Monster> Monster_list = new ArrayList<Monster>();
+    private static final List<MonsterGenerator> Monster_list = new ArrayList<>();
 
     public CharacterFactory() throws FileNotFoundException {
         file = new FileReader();
@@ -50,19 +87,11 @@ public class CharacterFactory {
         return null;
     }
 
-    public static Monster getMonster(String name, int level, int damage, int defense, int dodge_abi, String type) { // create a monster
-        switch (type) {
-            case "Dragon":
-                return new Dragon(name, level, damage, defense, dodge_abi);
-            case "Exoskeleton":
-                return new Exoskeleton(name, level, damage, defense, dodge_abi);
-            case "Spirit":
-                return new Spirit(name, level, damage, defense, dodge_abi);
-        }
-        return null;
+    private static MonsterGenerator getMonster(String name, int level, int damage, int defense, int dodge_abi, String type) { // create a monster
+        return new MonsterGenerator(name, level, damage, defense, dodge_abi, type);
     }
 
-    public static Monster getFileMonster() { // get monster from file
+    private static MonsterGenerator getFileMonster() { // get monster from file
         String Monster_next_line = file.read_next_monster();
         if (!Monster_next_line.equals("file_end")) {
             String monster_data[] = Monster_next_line.split("\\s+");
@@ -89,22 +118,18 @@ public class CharacterFactory {
 
     public static void createMonsterList() { // create a list that contain all the monsters
         while (true) {
-            Monster m = getFileMonster();
+            MonsterGenerator m = getFileMonster();
             if (m == null) break;
             Monster_list.add(m);
         }
     }
 
-    public static List<Monster> getMosterList() {
-        return Monster_list;
-    }
-
     public static Party getMonsterParty(int level, int num_heroes) {
         if (level > 10) level = 10; // max level of monster is 10
         List<Monster> monsterList_lev = new ArrayList<Monster>(); // list of monsters that have same level of Heroes
-        for (Monster m : Monster_list) {
+        for (MonsterGenerator m : Monster_list) {
             if (m.getLevel() == level) {
-                monsterList_lev.add(m); // add all the same level monster to the list
+                monsterList_lev.add(m.generateMonster()); // add all the same level monster to the list
             }
         }
         Party monster_party = new Party(); // monster party

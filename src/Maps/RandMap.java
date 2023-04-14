@@ -114,17 +114,17 @@ public class RandMap implements Map{ // this is a map that cells is randomly sca
     }
 
     public boolean teleport(Hero hero){
-        AskPrompt.ask_teleport();
         int destinationX = 0;
         int destinationY = 0;
         boolean valid = false;
         while(!valid){
-            PrintPrompt.invalidTeleport();
             AskPrompt.ask_teleport();
             destinationX = s.ScanInt();
             destinationY = s.ScanInt();
             valid = checkValidMove(hero, destinationY, destinationX) &
                     checkTeleport(hero, destinationY, destinationX);
+            if (!valid)
+                PrintPrompt.invalidTeleport();
         }
         completeMove(hero, destinationY, destinationX);
         return true;
