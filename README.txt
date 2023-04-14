@@ -1,4 +1,13 @@
-# CS611-<Assignment 4>## <Assignment 4>---------------------------------------------------------------------------WEI-TSE, KAOkaowt@bu.eduU00861032
+# CS611-Legends of Valor
+## <Assignment 4>
+---------------------------------------------------------------------------
+WEI-TSE, KAO
+kaowt@bu.edu
+U00861032
+
+Yichuan Philip Ma
+yma03@bu.edu
+U56263161
 
 ## Files
 ---------------------------------------------------------------------------
@@ -81,10 +90,10 @@ Utility(Package):
 
 ## How to compile and run
 ---------------------------------------------------------------------------
-1. Navigate to the directory "/611_Assignment_4/src" after unzipping the files2. Run the following instructions:javac Main.javajava Main
+1. Navigate to the directory "/611_Assignment_4/src" after unzipping the files
+2. Run the following instructions:
+javac Main.java
+java Main
 
 ## Input/Output Example
 ---------------------------------------------------------------------------
-
-
-

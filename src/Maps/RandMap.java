@@ -134,10 +134,11 @@ public class RandMap implements Map{ // this is a map that cells is randomly sca
         // destination Y cannot be 0 (or the game is broken)
         // hero must teleport to different lane
         if (destY == 0) return false;
-        int index = java.lang.Character.getNumericValue(hero.getHeroMark().charAt(1)) - 1;
         Set<Integer> sameLaneIndices = new HashSet<>();
-        sameLaneIndices.add(3 * index);
-        sameLaneIndices.add((3 * index) + 1);
+        int origX = hero.getPositionX();
+        sameLaneIndices.add(origX);
+        sameLaneIndices.add(origX + 1);
+        sameLaneIndices.add(origX - 1);
         return !sameLaneIndices.contains(destX);
     }
 
