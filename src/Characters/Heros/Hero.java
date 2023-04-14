@@ -235,10 +235,6 @@ abstract public class Hero implements Character{  // this class is Hero object
         monster.getSpellAffect(spell, this);
         int spell_damage = (int) Math.round(attack_factor*(spell.getDamage() + spell.getDamage()*(dex/dex_damage_factor))); // calculate spell damage
         monster.takeDamage(spell_damage, this ); //get damage
-        System.out.println("spell!");
-        System.out.println("spell!");
-        System.out.println("spell!");
-        PrintPrompt.PrintSpellDamage(spell_damage);
     }
     public int getSpellMana(int index){
         Spell spell = (Spell) spell_inventory.get(index);
