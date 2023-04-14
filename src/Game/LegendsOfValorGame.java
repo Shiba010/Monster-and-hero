@@ -12,20 +12,19 @@ import Maps.RandMap;
 import Characters.Heros.Hero;
 import Characters.CharacterFactory;
 import Prompt.*;
-import Space.Cell;
 import Party.Party;
 
 
 
 
-public class MonsterAndHeroGame implements RoundBasedGame{
+public class LegendsOfValorGame implements RoundBasedGame{
     private Map game_map;
     private Player player = new Player();
     private final int max_people;
     private Party monsterParty;
     private int roundCount;
 
-    public MonsterAndHeroGame() throws FileNotFoundException {
+    public LegendsOfValorGame() throws FileNotFoundException {
         max_people = 3;
         new CharacterFactory();
         new ItemFactory();

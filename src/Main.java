@@ -1,8 +1,8 @@
 import java.io.FileNotFoundException;
-import Game.MonsterAndHeroGame;
+import Game.LegendsOfValorGame;
 public class Main {
     public static void main(String[] args) throws FileNotFoundException {
-        MonsterAndHeroGame M = new MonsterAndHeroGame();
+        LegendsOfValorGame M = new LegendsOfValorGame();
         M.startGame();
         M.startARound();
     }
