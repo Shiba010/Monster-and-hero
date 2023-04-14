@@ -69,13 +69,12 @@ public class AskPrompt { // this class is used to communicate with player and te
     }
 
     // Return value for this method is always lower-case.
-
     public static String ask_which_direction(Hero hero, Map map) { // ask which direction should the party go
         Set<String> valids = new HashSet<>();
         // up, down, left, right
         valids.addAll(Arrays.asList("w", "a", "s", "d"));
         // teleport, recall, use potion, equip/unequip armor/weapon, quit
-        valids.addAll(Arrays.asList("t", "r", "p", "e", "q"));
+        valids.addAll(Arrays.asList("t", "r", "p", "e", "q", "pa"));
         // enter market if hero is on hero's nexus
         if (map.getCell(hero).isHeroNexus())
             valids.add("m");

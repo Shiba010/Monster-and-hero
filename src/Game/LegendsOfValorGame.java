@@ -118,8 +118,10 @@ public class LegendsOfValorGame implements RoundBasedGame{ //this is the class f
                     attack(hero);
                     done = true;
                 } else if(dir.equals("sp")) { // use spell
-
                     useSpell(hero);
+                    done = true;
+                } else if (dir.equals("pa")) {
+                    System.out.println("Passing " + hero.getName()  + "'s turn.");
                     done = true;
                 } else {
                     done = game_map.move(dir, hero);

@@ -70,7 +70,7 @@ Prompt(Package):
 Space(Package):
 	Cell: the unit of the map
 	-extend InvalidSpace.java: area in the map which is invalid
-	-extend BushSpace.java: bushlanscpe in the map
+	-extend BushSpace.java: bush landscape in the map
 	-extend CaveSpace.java: cave landscape in the map
 	-extend KoulouSpace.java: koulou landscape in the map
 	-extend PlainSpace.java: plain landscape in the map
@@ -97,3 +97,7 @@ java Main
 
 ## Input/Output Example
 ---------------------------------------------------------------------------
+In these examples, text wrapped in curly brackets are {inputs}. All others are
+outputs.
+
+### Initialization and first round

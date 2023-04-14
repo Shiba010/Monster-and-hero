@@ -203,6 +203,7 @@ public class PrintPrompt {
         System.out.print("[E/e] equip weapon or armor; ");
 
         System.out.print("[I/i] info; ");
+        System.out.print("[Pa] pass turn; ");
         System.out.print("[Q/q] quit\n");
         // if hero is in nexus, show command for market
         if(map.getCell(hero).isHeroNexus())
