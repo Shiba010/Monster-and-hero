@@ -99,11 +99,9 @@ public class RandMap implements Map{ // this is a map that cells is randomly sca
                 market.start_event(hero);
                 return false;
             case "e":
-                equip(hero);
-                return true;
+                return equip(hero);
             case "p":
-                usePotion(hero);
-                return true;
+                return usePotion(hero);
             case "t":
                 return teleport(hero);
             case "r":
@@ -155,35 +153,36 @@ public class RandMap implements Map{ // this is a map that cells is randomly sca
     }
 
 
-    public void equip(Hero hero) { //Hero equip weapon or armor
+    public boolean equip(Hero hero) { //Hero equip weapon or armor
         Player player = new Player();
         String index_string = AskPrompt.ask_equip(hero, hero.getEquipment_inventory());
         //Ask the player that what items should this hero equip
         if (index_string.equals("Q") | index_string.equals("q")) {//quit
-            player.Quit();
-            return;
-        } else if (index_string.equals("L") | index_string.equals("l")) return;
+            PrintPrompt.handleQuit();
+        } else if (index_string.equals("L") | index_string.equals("l"))
+            return false;
         ; // leave the process of choosing equipment
 
         hero.equip(Integer.parseInt(index_string));
         //hero_party.updateCharacterBYSearch(hero); // update hero party
+        return true;
     }
 
-    public void usePotion(Hero hero){
+    public boolean usePotion(Hero hero){
         Player player = new Player();
         String index_string = AskPrompt.ask_which_potion(hero, hero.getPotion_inventory());
         //Ask the player which spell/potion wants to use.
         if (index_string.equals("Q")|index_string.equals("q")) {//quit
-            player.Quit();
-            return;
-        } else if (index_string.equals("L")|index_string.equals("l")) return; // ao back to choose action
+            PrintPrompt.handleQuit();
+        } else if (index_string.equals("L")|index_string.equals("l"))
+            return false; // ao back to choose action
         int index = Integer.parseInt(index_string);
         Item item = hero.getPotion_inventory().get(index);
         //**********************************
         Potions potion = (Potions) item;
         potion.consume(hero); // use Potion
         //hero_party.updateCharacterBYSearch(hero); // update hero party
-        return;
+        return true;
     }
 
 //    public void useSpell(Hero hero){

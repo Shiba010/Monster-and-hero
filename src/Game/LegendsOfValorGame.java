@@ -118,8 +118,7 @@ public class LegendsOfValorGame implements RoundBasedGame{ //this is the class f
                     attack(hero);
                     done = true;
                 } else if(dir.equals("sp")) { // use spell
-                    useSpell(hero);
-                    done = true;
+                    done = useSpell(hero);
                 } else if (dir.equals("pa")) {
                     System.out.println("Passing " + hero.getName()  + "'s turn.");
                     done = true;
@@ -142,9 +141,9 @@ public class LegendsOfValorGame implements RoundBasedGame{ //this is the class f
             monsterParty.remove(monster);
         }
     }
-    public void useSpell(Hero hero) {
+    public boolean useSpell(Hero hero) {
         Monster monster = game_map.monsterInRange(hero);
-        if (monster == null) return;
+        if (monster == null) return false;
 
         String index_string = AskPrompt.ask_which_spell(hero, hero.getSpell_inventory());
         //Ask the player which spell/potion wants to use.
@@ -152,14 +151,19 @@ public class LegendsOfValorGame implements RoundBasedGame{ //this is the class f
             player.Quit();
         }
 
-        int index = Integer.parseInt(index_string);
+        int index;
+        try {
+            index = Integer.parseInt(index_string);
+        } catch (NumberFormatException ignored) {
+            return false;
+        }
         Item item = hero.getSpell_inventory().get(index);
         Spell spell = (Spell) item;
             //**********************************
 
         if (hero.getSpellMana(index) > hero.getMana()) {
             PrintPrompt.Print_spell_cannot_use();
-            return;
+            return false;
         }
         hero.useSpell(monster, spell); //use spell
         //hero_party.updateCharacterBYSearch(hero); // update hero party
@@ -169,6 +173,7 @@ public class LegendsOfValorGame implements RoundBasedGame{ //this is the class f
             hero.gainExp(monster.getDeadExp(1));
             monsterParty.remove(monster);
         }
+        return true;
     }
 
     private void monstersTurn() {
