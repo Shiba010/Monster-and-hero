@@ -4,7 +4,7 @@ import Characters.Heros.Hero;
 
 
 
-public class CaveSpace extends Cell {
+public class CaveSpace extends Cell { //this is the class for cave space
     public CaveSpace() {
         super();
     }

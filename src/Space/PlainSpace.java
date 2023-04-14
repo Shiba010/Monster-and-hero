@@ -1,7 +1,7 @@
 package Space;
 
 
-public class PlainSpace extends Cell {
+public class PlainSpace extends Cell { //this is the class for plain space
     public PlainSpace() {
         super();
     }

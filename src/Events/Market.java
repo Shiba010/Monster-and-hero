@@ -12,7 +12,7 @@ import Prompt.*;
 
 
 
-public class Market implements Event{
+public class Market implements Event{ //this is the class for the market
     private List<Item> item_list = new ArrayList<Item>();
 
     public Market() {

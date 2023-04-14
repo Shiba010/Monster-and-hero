@@ -1,7 +1,7 @@
 package Items.Spells;
 import Items.Consumable;
 
-public class IceSpell extends Spell implements Consumable{
+public class IceSpell extends Spell implements Consumable{ //this is the class for ice spell
 
 
     public IceSpell(String name, int price, int level, int damage, int mana_cost, String type) {

@@ -10,7 +10,7 @@ import Items.Spells.Spell;
 
 
 
-public class Monster implements Character{
+public class Monster implements Character{ //this is the super class for monster
     private String name;
     private int level;
     private int HP;

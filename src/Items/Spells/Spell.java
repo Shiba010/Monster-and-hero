@@ -3,7 +3,7 @@ import Items.Item;
 import Items.Consumable;
 
 
-public class Spell implements Item, Consumable{
+public class Spell implements Item, Consumable{ //this is the super class for spell
     private String name;
     private int level;
     private int price;

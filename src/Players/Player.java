@@ -3,7 +3,7 @@ import Party.Party;
 import Characters.Heros.Hero;
 import Characters.Character;
 
-public class Player {
+public class Player { //this is the class for do operation on party
     private Party party = new Party();
     private boolean quit = false;
 

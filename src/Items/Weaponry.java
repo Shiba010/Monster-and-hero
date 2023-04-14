@@ -2,7 +2,7 @@ package Items;
 
 
 
-public class Weaponry implements Item, Equipable{
+public class Weaponry implements Item, Equipable{ //this is the class for weapon
     private String name;
     private int level;
     private int price;

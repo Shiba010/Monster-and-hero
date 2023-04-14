@@ -1,6 +1,6 @@
 package Characters;
 
-public interface Character {
+public interface Character { //this is the interface for character
     void attack(Character c);
     String getName();
     int getLevel();

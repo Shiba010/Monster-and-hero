@@ -2,7 +2,7 @@ package Space;
 import Characters.Heros.Hero;
 import Characters.Monsters.Monster;
 
-public abstract class Cell {
+public abstract class Cell { //this is the class for the unit in the map
     private Hero hero;
     private Monster monster;
     private String MonsterMark;

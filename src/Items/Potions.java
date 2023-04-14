@@ -5,7 +5,7 @@ import Characters.Character;
 
 
 
-public class Potions implements Item, Consumable{
+public class Potions implements Item, Consumable{ //this is the class for potion
     private String name;
     private int level;
     private int price;

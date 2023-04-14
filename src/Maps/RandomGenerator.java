@@ -1,7 +1,7 @@
 package Maps;
 import java.util.Random;
 
-public class RandomGenerator {
+public class RandomGenerator { //this is the class for generating random stuff
     static Random r = new Random();
     public static boolean TrueFalseGen(double probability){  // this class return true false by the probability
         if(probability > r.nextDouble()){

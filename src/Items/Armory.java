@@ -2,7 +2,7 @@ package Items;
 
 
 
-public class Armory implements Item, Equipable{
+public class Armory implements Item, Equipable{ //this is the class for armor
     private String name;
     private int level;
     private int price;

@@ -1,7 +1,7 @@
 package Space;
 
 
-public class MonsterNexusSpace extends Cell {
+public class MonsterNexusSpace extends Cell { //this is the class for the nexus of monster
     public MonsterNexusSpace() {
         super();
     }

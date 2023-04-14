@@ -18,7 +18,7 @@ import Prompt.*;
 import Utility.FileReader;
 
 
-public class CharacterFactory {
+public class CharacterFactory { //this is the class to create character
 
     private static class MonsterGenerator {
         private String name;

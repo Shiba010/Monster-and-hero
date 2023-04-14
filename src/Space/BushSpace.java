@@ -4,7 +4,7 @@ import Characters.Heros.Hero;
 
 
 
-public class BushSpace extends Cell {
+public class BushSpace extends Cell { //this is the class for bush space
     public BushSpace() {
         super();
     }

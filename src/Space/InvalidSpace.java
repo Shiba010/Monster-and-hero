@@ -2,7 +2,7 @@ package Space;
 import Characters.Heros.Hero;
 import Characters.Monsters.Monster;
 
-public class InvalidSpace extends Cell{
+public class InvalidSpace extends Cell{ //this is the class for invalid space
     @Override
     public void GoIn(Hero hero) {
         System.out.println("You can't move into an inaccessible space!");

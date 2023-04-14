@@ -17,7 +17,7 @@ import Party.Party;
 
 
 
-public class LegendsOfValorGame implements RoundBasedGame{
+public class LegendsOfValorGame implements RoundBasedGame{ //this is the class for legends of valor game
     private Map game_map;
     private Player player = new Player();
     private final int max_people;

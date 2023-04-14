@@ -3,7 +3,7 @@ package Space;
 import Characters.Heros.Hero;
 
 
-public class KoulouSpace extends Cell {
+public class KoulouSpace extends Cell { //this is the class for koulou space
     public KoulouSpace() {
         super();
     }

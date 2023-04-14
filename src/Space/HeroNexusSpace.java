@@ -6,7 +6,7 @@ import Characters.Heros.Hero;
 
 
 
-public class HeroNexusSpace extends Cell {
+public class HeroNexusSpace extends Cell { //this is the class for the nexus of hero
     private final Market market = new Market();
 
     //private final double occur_probability;
